@@ -6,11 +6,15 @@
 
     <string name="accounts">Accounts</string>
     <string name="hyphen">-</string>
-    <string name="loading_accounts">Loading accounts...</string>
+    <string name="loading_accounts">Loading accounts…</string>
     <string name="logo">logo</string>
     <string name="money_simbol">$</string>
     <string name="actions_content_description">actions</string>
     <string name="movements">Movements</string>
     <string name="total_balance">Total Balance:</string>
+    <string name="initial_period">Start Period</string>
+    <string name="bank_account">Bank</string>
+    <string name="cash_account">Cash</string>
+
 
 </resources>

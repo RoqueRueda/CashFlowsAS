@@ -38,11 +38,10 @@ import com.roque.rueda.cashflows.viewholder.AccountView;
  */
 public class AccountAdapter extends CursorAdapter {
 
-	private Context mContext;
-	private final LayoutInflater mInflater;
+    private final LayoutInflater mInflater;
 	private static int sCursorFlags = 0;
-	
-	
+
+
 	/**
 	 * Creates an Account Adapter used to present the information
 	 * of the accounts.
@@ -52,8 +51,7 @@ public class AccountAdapter extends CursorAdapter {
 	 */
 	public AccountAdapter(Context context, Cursor c) {
 		super(context, c, sCursorFlags);
-		
-		mContext = context;
+
 		mInflater = LayoutInflater.from(mContext);
 		
 	}
@@ -96,8 +94,10 @@ public class AccountAdapter extends CursorAdapter {
 		final View view = mInflater.inflate(R.layout.account_list_item_nice, parent, false);
 		// View holder that is used to avoid calls to find view by Id.
 		AccountView holder = new AccountView(view, context.getResources());
-		view.setTag(holder);
-		return view;
+        if (view != null) {
+            view.setTag(holder);
+        }
+        return view;
 	}
 	
 

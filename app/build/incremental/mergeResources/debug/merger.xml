@@ -664,23 +664,29 @@
                 qualifiers="" >
                 <string name="movements" >Movements
                 </string>
+                <string name="cash_account" >Cash
+                </string>
                 <string name="action_settings" >Settings
                 </string>
-                <string name="money_simbol" >$
-                </string>
-                <string name="total_balance" >Total Balance:
-                </string>
-                <string name="app_name" >CashFlows
-                </string>
-                <string name="actions_content_description" >actions
-                </string>
-                <string name="accounts" >Accounts
+                <string name="bank_account" >Bank
                 </string>
                 <string name="hyphen" >-
                 </string>
                 <string name="logo" >logo
                 </string>
-                <string name="loading_accounts" >Loading accounts...
+                <string name="loading_accounts" >Loading accounts…
+                </string>
+                <string name="money_simbol" >$
+                </string>
+                <string name="initial_period" >Start Period
+                </string>
+                <string name="app_name" >CashFlows
+                </string>
+                <string name="total_balance" >Total Balance:
+                </string>
+                <string name="accounts" >Accounts
+                </string>
+                <string name="actions_content_description" >actions
                 </string>
             </file>
             <file
@@ -704,6 +710,36 @@
 
                     <!-- All customizations that are NOT specific to a particular API-level can go here. -->
                 </style>
+            </file>
+            <file
+                path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values-es/strings.xml"
+                qualifiers="es" >
+                <string name="cash_account" >Efectivo
+                </string>
+                <string name="loading_accounts" >Cagando cuentas…
+                </string>
+                <string name="bank_account" >Banco
+                </string>
+                <string name="hyphen" >-
+                </string>
+                <string name="logo" >logo
+                </string>
+                <string name="total_balance" >Saldo Total:
+                </string>
+                <string name="movements" >Movemientos
+                </string>
+                <string name="action_settings" >Configuracion
+                </string>
+                <string name="money_simbol" >$
+                </string>
+                <string name="app_name" >Flujo De Efectivo
+                </string>
+                <string name="actions_content_description" >acciones
+                </string>
+                <string name="accounts" >Cuentas
+                </string>
+                <string name="initial_period" >Periodo Inicial
+                </string>
             </file>
             <file
                 path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values-sw600dp/refs.xml"

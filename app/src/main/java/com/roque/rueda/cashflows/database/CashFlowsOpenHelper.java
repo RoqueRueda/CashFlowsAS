@@ -53,19 +53,21 @@ import static com.roque.rueda.cashflows.database.AccountTable.ID_PERIOD;
 public class CashFlowsOpenHelper extends SQLiteOpenHelper {
 	
 	private static final String TAG = "CashFlowOpenHelper";
-	
-	private SQLiteDatabase mDatabase;
-	
-	public static final String DATABASE_NAME = "cash_flows.db";
+
+    public static final String DATABASE_NAME = "cash_flows.db";
 	public static final int INITIAL_DATABASE_VERSION = 1;
 	public static final int FOREING_KEY_ERROR_VERSION = 2;
 	public static final int PHOTO_NUMBER_ACCOUNTS = 4;
 	public static final int PHOTO_NUMBER_ERROR = 5;
-	
+    public static final int ADDING_SP_ACCOUNT_NAMES = 6;
+    public static final int NO_LOAD_ACCOUNTS = 8;
+    public static final int NO_INIT_LOAD = 9;
+    public static final int TRANSACCTION_ERROR = 10;
+
 	/**
 	 * Current database version.
 	 */
-	public static final int DATABASE_VERSION = PHOTO_NUMBER_ERROR;
+	public static final int DATABASE_VERSION = TRANSACCTION_ERROR;
 	
 	/**
 	 * Create sentence for the movements table.
@@ -102,6 +104,8 @@ public class CashFlowsOpenHelper extends SQLiteOpenHelper {
 					NAME + " TEXT NOT NULL," + 
 					ACTIVE + " INTEGER NOT NULL);" ;
 
+    private Context mContext;
+
 	/**
 	 * Creates a SQLite open helper instance with the context
 	 * of the application.
@@ -109,6 +113,7 @@ public class CashFlowsOpenHelper extends SQLiteOpenHelper {
 	 */
 	public CashFlowsOpenHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        mContext = context;
 	}
 
 	/**
@@ -121,15 +126,14 @@ public class CashFlowsOpenHelper extends SQLiteOpenHelper {
 		Log.w(TAG, "Creating the database of the application.");
 		
 		// Set the database object to future references.
-		mDatabase = db;
-		
-		// Executes a script used to generate the initial tables table.
-		mDatabase.execSQL(CREATION_TABLE_PERIODS);
-		mDatabase.execSQL(CREATION_TABLE_ACCOUNTS);
-		mDatabase.execSQL(CREATION_TABLE_MOVEMENTS);
+
+        // Executes a script used to generate the initial tables table.
+		db.execSQL(CREATION_TABLE_PERIODS);
+		db.execSQL(CREATION_TABLE_ACCOUNTS);
+		db.execSQL(CREATION_TABLE_MOVEMENTS);
 		
 		AccountManager manager = new AccountManager();
-		manager.initialLoad(db);
+		manager.initialLoad(db, mContext.getResources());
 	}
 	
 	/**
@@ -160,21 +164,23 @@ public class CashFlowsOpenHelper extends SQLiteOpenHelper {
 		 * the information.
 		 * 
 		 */
-		int version = oldVersion;
-		
-		switch (version) {
+
+		switch (oldVersion) {
 			case INITIAL_DATABASE_VERSION:
 			case FOREING_KEY_ERROR_VERSION:
-			case PHOTO_NUMBER_ACCOUNTS: {
+			case PHOTO_NUMBER_ACCOUNTS:
+			case PHOTO_NUMBER_ERROR:
+            case ADDING_SP_ACCOUNT_NAMES:
+            case NO_LOAD_ACCOUNTS:
+            case NO_INIT_LOAD:
+            case TRANSACCTION_ERROR:
+            {
                 // Delete account table.
                 db.execSQL("DROP TABLE IF EXISTS " + TABLE_PERIODS);
                 db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACCOUNTS);
                 db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOVEMENTS);
                 onCreate(db);
-            }
-			case PHOTO_NUMBER_ERROR:
-                // Should be use to execute something.
-				break;
+            } break;
 		}
 		
 	}

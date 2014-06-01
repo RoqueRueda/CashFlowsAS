@@ -33,11 +33,14 @@ import java.util.Locale;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
+
+import com.roque.rueda.cashflows.R;
 
 /**
  * Class used to handle the accounts of the cash flows.
@@ -50,9 +53,12 @@ import android.util.Log;
 public class AccountManager {
 	
 	private static final String TAG = "AccountManager";
-	
-	private Context mContext;
-	private CashFlowsOpenHelper mOpenHelper;
+
+    private CashFlowsOpenHelper mOpenHelper;
+    private Resources mResources;
+    private String periodName;
+    private String bank_account;
+    private String cashAccount;
 	
 	/**
 	 * Creates an instance with the default values.
@@ -67,8 +73,8 @@ public class AccountManager {
 	 * @param context {@link android.content.Context} Context of the application.
 	 */
 	public AccountManager(Context context) {
-		mContext = context;
-		mOpenHelper = new CashFlowsOpenHelper(mContext);
+		mResources = context.getResources();
+        mOpenHelper = new CashFlowsOpenHelper(context);
 	}
 	
 	/**
@@ -84,22 +90,29 @@ public class AccountManager {
 		String orderBy = AccountTable.ACCOUNT_NAME + " DESC";
 		
 		SQLiteDatabase db = mOpenHelper.getReadableDatabase();
-		return qb.query(db, null, PeriodTable.ACTIVE + " = 1", null, null, null, orderBy);
-	}
+        if (db != null) {
+            return qb.query(db, null, PeriodTable.ACTIVE + " = 1", null, null, null, orderBy);
+        } else {
+            throw new IllegalStateException("Can't get the accounts from the database. SQLiteDatabase is null.");
+        }
+    }
 
     /**
      * Initial load of information to the database.
      * @param db {@link android.database.sqlite.SQLiteDatabase} that will be used to insert
      *           data into the database.
+     * @param rs {@link android.content.res.Resources} where this initial load will get the propert string names for
+     *           each account.
      *
      */
-	public void initialLoad(SQLiteDatabase db) {
+	public void initialLoad(SQLiteDatabase db, Resources rs) {
 		// Insert the default values in the accounts.
 		try {
-			
-			db.beginTransaction();
-			
+
 			ContentValues initialValues = new ContentValues();
+
+
+
 			
 			/**
 			 * Insert the first period.
@@ -107,10 +120,10 @@ public class AccountManager {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 			String todayDate = sdf.format(new Date());
 			initialValues.put(START_DATE, todayDate);
-			// TODO: Replace the hard code to a strings resource.
-			initialValues.put(NAME, "Start Period");
+            periodName = mResources.getString(R.string.initial_period);
+			initialValues.put(NAME, periodName);
 			initialValues.put(ACTIVE, 1);
-			initialValues.put(END_DATE, "");
+			initialValues.put(END_DATE, todayDate);
 			
 			long periodId = db.insert(TABLE_PERIODS, null, initialValues);
 			
@@ -119,8 +132,8 @@ public class AccountManager {
 			 */
 			initialValues.clear();
 			initialValues.put(ACCOUNT_INITIAL_BALANCE, 0.00);
-			// TODO: Replace the hard code to a strings resource.
-			initialValues.put(ACCOUNT_NAME, "Bank");
+            bank_account = mResources.getString(R.string.bank_account);
+			initialValues.put(ACCOUNT_NAME, bank_account);
 			initialValues.put(ACCOUNT_END_BALANCE, 0.00);
 			initialValues.put(PHOTO_NUMBER, 1);
 			initialValues.put(ID_PERIOD, periodId);
@@ -132,19 +145,21 @@ public class AccountManager {
 			 */
 			initialValues.clear();
 			initialValues.put(ACCOUNT_INITIAL_BALANCE, 0.00);
-			// TODO: Replace the hard code to a strings resource.
-			initialValues.put(ACCOUNT_NAME, "Cash");
+            cashAccount = mResources.getString(R.string.cash_account);
+			initialValues.put(ACCOUNT_NAME, cashAccount);
 			initialValues.put(ACCOUNT_END_BALANCE, 0.00);
 			initialValues.put(PHOTO_NUMBER, 2);
 			initialValues.put(ID_PERIOD, periodId);
 			
 			db.insert(TABLE_ACCOUNTS, null, initialValues);
-			
-			db.setTransactionSuccessful();
+
+            if (db.inTransaction()) {
+                db.endTransaction();
+            }
+
 		} catch (SQLException sqlEx) {
 			Log.wtf(TAG, "Error inserting initial values, " + sqlEx.getMessage());
-		} finally {
-			db.endTransaction();
+            throw sqlEx;
 		}
 	}
 	
