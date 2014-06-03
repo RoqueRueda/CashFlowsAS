@@ -54,6 +54,11 @@ public class AccountManager {
 	
 	private static final String TAG = "AccountManager";
 
+    /**
+     * Inner Join sentence.
+     */
+    public static final String JOIN = " INNER JOIN ";
+
     private CashFlowsOpenHelper mOpenHelper;
     private Resources mResources;
     private String periodName;
@@ -84,7 +89,7 @@ public class AccountManager {
 	public Cursor getAccountsForCurrentPeriod() {
 		
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-		qb.setTables(TABLE_PERIODS + " INNER JOIN " + TABLE_ACCOUNTS +
+		qb.setTables(TABLE_PERIODS + JOIN + TABLE_ACCOUNTS +
 				" ON " + AccountTable.ID_PERIOD + " = " + PeriodTable.FULL_ID);
 		
 		String orderBy = AccountTable.ACCOUNT_NAME + " DESC";
@@ -95,6 +100,23 @@ public class AccountManager {
         } else {
             throw new IllegalStateException("Can't get the accounts from the database. SQLiteDatabase is null.");
         }
+    }
+
+    public Cursor getFinalBalance() {
+
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        qb.setTables(TABLE_PERIODS + JOIN + TABLE_ACCOUNTS +
+                " ON " + AccountTable.ID_PERIOD + " = " + PeriodTable.FULL_ID);
+        qb.appendWhere(PeriodTable.ACTIVE + " = 1");
+
+        SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+        if (db != null) {
+            return qb.query(db, new String[] { "SUM(" + AccountTable.FULL_ACCOUNT_END_BALANCE + ")" },
+                    null, null, null, null, null);
+        } else {
+            throw new IllegalStateException("Can't get the total balance from the database. SQLiteDatabase is null.");
+        }
+
     }
 
     /**
@@ -108,11 +130,9 @@ public class AccountManager {
 	public void initialLoad(SQLiteDatabase db, Resources rs) {
 		// Insert the default values in the accounts.
 		try {
+            db.beginTransaction();
 
 			ContentValues initialValues = new ContentValues();
-
-
-
 			
 			/**
 			 * Insert the first period.
@@ -120,7 +140,7 @@ public class AccountManager {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 			String todayDate = sdf.format(new Date());
 			initialValues.put(START_DATE, todayDate);
-            periodName = mResources.getString(R.string.initial_period);
+            periodName = rs.getString(R.string.initial_period);
 			initialValues.put(NAME, periodName);
 			initialValues.put(ACTIVE, 1);
 			initialValues.put(END_DATE, todayDate);
@@ -132,7 +152,7 @@ public class AccountManager {
 			 */
 			initialValues.clear();
 			initialValues.put(ACCOUNT_INITIAL_BALANCE, 0.00);
-            bank_account = mResources.getString(R.string.bank_account);
+            bank_account = rs.getString(R.string.bank_account);
 			initialValues.put(ACCOUNT_NAME, bank_account);
 			initialValues.put(ACCOUNT_END_BALANCE, 0.00);
 			initialValues.put(PHOTO_NUMBER, 1);
@@ -145,7 +165,7 @@ public class AccountManager {
 			 */
 			initialValues.clear();
 			initialValues.put(ACCOUNT_INITIAL_BALANCE, 0.00);
-            cashAccount = mResources.getString(R.string.cash_account);
+            cashAccount = rs.getString(R.string.cash_account);
 			initialValues.put(ACCOUNT_NAME, cashAccount);
 			initialValues.put(ACCOUNT_END_BALANCE, 0.00);
 			initialValues.put(PHOTO_NUMBER, 2);
@@ -153,15 +173,15 @@ public class AccountManager {
 			
 			db.insert(TABLE_ACCOUNTS, null, initialValues);
 
-            if (db.inTransaction()) {
-                db.endTransaction();
-            }
+            db.setTransactionSuccessful();
 
 		} catch (SQLException sqlEx) {
 			Log.wtf(TAG, "Error inserting initial values, " + sqlEx.getMessage());
             throw sqlEx;
-		}
-	}
+		} finally {
+            db.endTransaction();
+        }
+    }
 	
 	
 }

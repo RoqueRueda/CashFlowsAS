@@ -67,13 +67,12 @@ public final class R {
         public static final int account_name=0x7f090003;
         public static final int account_title=0x7f090009;
         public static final int accounts=0x7f09000d;
-        public static final int action_settings=0x7f090012;
+        public static final int action_settings=0x7f090011;
         public static final int actions=0x7f090002;
         public static final int balance_container=0x7f090006;
         public static final int blnc_header=0x7f090007;
         public static final int divider=0x7f09000a;
         public static final int icon=0x7f090001;
-        public static final int id_account=0x7f090011;
         public static final int mainContainer=0x7f090000;
         public static final int money_sing=0x7f090005;
         public static final int movement_container=0x7f09000e;
@@ -101,11 +100,12 @@ public final class R {
         public static final int cash_account=0x7f060005;
         public static final int hyphen=0x7f060006;
         public static final int initial_period=0x7f060007;
-        public static final int loading_accounts=0x7f060008;
-        public static final int logo=0x7f060009;
-        public static final int money_simbol=0x7f06000a;
-        public static final int movements=0x7f06000b;
-        public static final int total_balance=0x7f06000c;
+        public static final int loading=0x7f060008;
+        public static final int loading_accounts=0x7f060009;
+        public static final int logo=0x7f06000a;
+        public static final int money_simbol=0x7f06000b;
+        public static final int movements=0x7f06000c;
+        public static final int total_balance=0x7f06000d;
     }
     public static final class style {
         /** 

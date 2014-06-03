@@ -45,8 +45,15 @@ public class MovementsListFragment extends Fragment {
 	 * Constant used to retrieve the account id from the extras.
 	 */
 	public static final String ARG_ACCOUNT_ID = "AccountId";
+
+    /**
+     * Value indicating if this activity is showing the content as
+     * two pane.
+     */
+    public static final String ARG_TWO_PANE = "IsTwoPane";
 	
 	private long mIdAccount = -1;
+    private boolean mShowBalance = false;
 	
 	/**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -76,20 +83,22 @@ public class MovementsListFragment extends Fragment {
 				// Print a message when no Id is found.
 				Log.w(TAG, "== No id is found for AccountMovementsActivity ==");
 			}
-			
-			
 		}
+
+        if (getArguments().containsKey(ARG_TWO_PANE)) {
+            mShowBalance = getArguments().getBoolean(ARG_TWO_PANE);
+        }
+
 	}
 	
 	/**
 	 * 
 	 * Handle the creation of the view.
 	 * 
-	 * @param inflater 		Inflater used to generate the view
-	 * @param container		View that is used as the parent of this fragment.
-	 * @param savedInstanceState
-	 * 									Arguments used to create the view.
-	 * @return						View that will present this fragment.
+	 * @param inflater Inflater used to generate the view
+	 * @param container View that is used as the parent of this fragment.
+	 * @param savedInstanceState Arguments used to create the view.
+	 * @return View that will present this fragment.
 	 */
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,9 +107,12 @@ public class MovementsListFragment extends Fragment {
 		if (DEBUG) {
 			Log.i(TAG, "== onCreateView() ==");
 		}
-		
+
         View rootView = inflater.inflate(R.layout.cash_movements, container, false);
-    	((TextView) rootView.findViewById(R.id.id_account)).setText("Account id: " + mIdAccount);
+
+        if (mShowBalance) {
+            rootView.findViewById(R.id.balance_container).setVisibility(View.VISIBLE);
+        }
         
         return rootView;
     }

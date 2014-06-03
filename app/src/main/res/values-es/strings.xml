@@ -15,5 +15,6 @@
     <string name="initial_period">Periodo Inicial</string>
     <string name="bank_account">Banco</string>
     <string name="cash_account">Efectivo</string>
+    <string name="loading">Cargando</string>
 
 </resources>

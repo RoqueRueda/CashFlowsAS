@@ -62,12 +62,14 @@ public class CashFlowsOpenHelper extends SQLiteOpenHelper {
     public static final int ADDING_SP_ACCOUNT_NAMES = 6;
     public static final int NO_LOAD_ACCOUNTS = 8;
     public static final int NO_INIT_LOAD = 9;
-    public static final int TRANSACCTION_ERROR = 10;
+    public static final int TRANSACTION_ERROR = 10;
+    public static final int ERROR_LOADING = 11;
+    public static final int ERROR_GETTING_SP_VALUES = 12;
 
 	/**
 	 * Current database version.
 	 */
-	public static final int DATABASE_VERSION = TRANSACCTION_ERROR;
+	public static final int DATABASE_VERSION = ERROR_GETTING_SP_VALUES;
 	
 	/**
 	 * Create sentence for the movements table.
@@ -173,7 +175,9 @@ public class CashFlowsOpenHelper extends SQLiteOpenHelper {
             case ADDING_SP_ACCOUNT_NAMES:
             case NO_LOAD_ACCOUNTS:
             case NO_INIT_LOAD:
-            case TRANSACCTION_ERROR:
+            case TRANSACTION_ERROR:
+            case ERROR_LOADING:
+            case ERROR_GETTING_SP_VALUES:
             {
                 // Delete account table.
                 db.execSQL("DROP TABLE IF EXISTS " + TABLE_PERIODS);

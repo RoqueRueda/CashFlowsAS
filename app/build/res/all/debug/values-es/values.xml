@@ -12,6 +12,7 @@
     <string name="cash_account">Efectivo</string>
     <string name="hyphen">-</string>
     <string name="initial_period">Periodo Inicial</string>
+    <string name="loading">Cargando</string>
     <string name="loading_accounts">Cagando cuentas…</string>
     <string name="logo">logo</string>
     <string name="money_simbol">$</string>

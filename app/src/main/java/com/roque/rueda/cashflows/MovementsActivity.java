@@ -61,10 +61,15 @@ public class MovementsActivity extends FragmentActivity {
 			// Get the account id.
 			long accountId = getIntent().getLongExtra(
 					MovementsListFragment.ARG_ACCOUNT_ID, 1); // 1 is the default value.
-			
+			boolean showBalance = getIntent().getBooleanExtra(
+                    MovementsListFragment.ARG_TWO_PANE, false);
+
 			Bundle arguments = new Bundle();
 			arguments.putLong(MovementsListFragment.ARG_ACCOUNT_ID,
 					accountId);
+
+            arguments.putBoolean(MovementsListFragment.ARG_TWO_PANE,
+                    showBalance);
 			
 			MovementsListFragment fragment = new MovementsListFragment();
 			fragment.setArguments(arguments);

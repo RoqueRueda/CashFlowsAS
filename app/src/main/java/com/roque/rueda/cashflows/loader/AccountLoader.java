@@ -94,7 +94,7 @@ public class AccountLoader extends AsyncTaskLoader<Cursor> implements DataBaseOb
 		
 		if (isReset()) {
 			if (DEBUG) {
-				Log.i(TAG, "== Warning! A call to deliver reult with a query come on a reset status. ==");
+				Log.i(TAG, "== Warning! A call to deliver result with a query come on a reset status. ==");
 			}
 			// The loader has been reset; ignore the result and clean the data.
 			if (data != null) {
@@ -242,6 +242,10 @@ public class AccountLoader extends AsyncTaskLoader<Cursor> implements DataBaseOb
 		
 		super.forceLoad();
 	}
+
+    //////////////////////////////////////////////////////////////
+    // DataObserver members.
+    //////////////////////////////////////////////////////////////
 	
 	/** 
 	 * Method used to get a notification when a change

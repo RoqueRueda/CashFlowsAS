@@ -48,7 +48,7 @@ import android.widget.Toast;
  * 
  */
 public class AccountListFragment extends ListFragment implements 
-		LoaderCallbacks<Cursor>,	DatabaseMessenger{
+		LoaderCallbacks<Cursor>, DatabaseMessenger {
 
 	// Tag for this class.
 	private static final String TAG = "AccountListFragment";
@@ -152,9 +152,7 @@ public class AccountListFragment extends ListFragment implements
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		
-		// TODO: Get the id.
-		
+
 		careTaker.onItemSelected(id);
 	}
 	
