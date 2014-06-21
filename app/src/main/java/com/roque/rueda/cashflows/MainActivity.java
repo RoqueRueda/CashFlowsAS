@@ -23,6 +23,8 @@ import com.roque.rueda.cashflows.loader.BalanceLoader;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
@@ -80,6 +82,7 @@ public class MainActivity extends FragmentActivity
 		if (DEBUG) {
 			Log.i(TAG, "== Starting the application! ==");
 		}
+
 		
 		if (findViewById(R.id.movement_container) != null) {
 			// The detail container view will be present only in the

@@ -5,8 +5,9 @@
     <color name="divider_blue">#007AF0</color>
     <color name="text_white">#FFFFFF</color>
     <color name="darkgray">#333333</color>
-    <color name="black">#80000000</color>
+    <color name="black">#80202020</color>
     <color name="lightgray">#808080</color>
+    <color name="full_black">#000000</color>
     
     
 </resources>

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_4"
+    android:background="@color/full_black"
+    android:baselineAligned="false"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -54,12 +55,17 @@
         android:background="@color/divider_blue"
         android:layout_height="1dp" />
 
-    <!--<fragment
-        android:id="@+id/account_list"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:name="com.roque.rueda.cashflows.fragments.MovementsListFragment"
-        tools:layout="@android:layout/list_content" />-->
+    <ListView android:id="@id/android:list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawSelectorOnTop="false"/>
+
+    <TextView android:id="@id/android:empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/text_white"/>
     
 
 </LinearLayout>

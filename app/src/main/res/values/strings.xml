@@ -16,5 +16,9 @@
     <string name="bank_account">Bank</string>
     <string name="cash_account">Cash</string>
     <string name="loading">Loading</string>
+    <string name="no_cash_movements">There\'s no cash movements</string>
+    <string name="ok_amount_text">Ok</string>
+    <string name="cancel_amount_text">Cancel</string>
+    <string name="add_amount">Add amount</string>
 
 </resources>

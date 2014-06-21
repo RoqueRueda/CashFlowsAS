@@ -15,14 +15,15 @@
  */
 package com.roque.rueda.cashflows;
 
-import com.roque.rueda.cashflows.fragments.MovementsListFragment;
-
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.roque.rueda.cashflows.fragments.MovementsListFragment;
 
 /**
  * An activity that is used to present the movements of each account.
@@ -34,18 +35,21 @@ import android.view.MenuItem;
  * 
  */
 public class MovementsActivity extends FragmentActivity {
-	
-	/**
+
+    private static final boolean DEBUG = true;
+    private final static String TAG = "MovementsActivity";
+
+    /**
 	 * Method called when the activity is created for the first time,
 	 * initialize this activity.
 	 * 
-	 * @param savedInstanceState		Saved state of the application.
+	 * @param savedInstanceState Saved state of the application.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_movements);
-		
+
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
@@ -82,7 +86,7 @@ public class MovementsActivity extends FragmentActivity {
 	/**
 	 * Handles when a item is selected on the action bar.
 	 * 
-	 * @param item 		Menu item that was press.
+	 * @param item Menu item that was press.
 	 * 
 	 */
 	@Override
@@ -104,7 +108,7 @@ public class MovementsActivity extends FragmentActivity {
 	
 	/**
 	 * Creates the menu for this activity.
-	 * @param menu		{@link Menu} that will be used to present the menu.
+	 * @param menu {@link Menu} that will be used to present the menu.
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -112,4 +116,5 @@ public class MovementsActivity extends FragmentActivity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+
 }

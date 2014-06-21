@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/root_dialog"
+    android:background="@color/list_background">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/text_white"
+        android:id="@+id/dialog_amount_title"
+        android:layout_alignParentLeft="true"
+        android:text="@string/add_amount" />
+
+    <View
+        android:id="@+id/title_divider"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/dialog_amount_title"
+        android:background="@color/divider_blue"
+        android:layout_height="1dp" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/amount_text"
+        android:textSize="@dimen/amount_dialog"
+        android:layout_below="@id/dialog_amount_title"/>
+
+    <View
+        android:id="@+id/text_divider"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/amount_text"
+        android:background="@color/divider_blue"
+        android:layout_height="1dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/button_content"
+        android:layout_below="@+id/amount_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ok_amount_text"
+            android:id="@+id/ok_amount"
+            android:layout_weight="1"
+            android:background="@android:color/transparent" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="1dp"
+            android:background="@color/divider_blue"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel_amount_text"
+            android:id="@+id/cancel_amount"
+            android:layout_weight="1"
+            android:background="@android:color/transparent" />
+
+    </LinearLayout>
+
+</RelativeLayout>

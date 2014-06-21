@@ -16,5 +16,9 @@
     <string name="bank_account">Banco</string>
     <string name="cash_account">Efectivo</string>
     <string name="loading">Cargando</string>
+    <string name="no_cash_movements">No hay movimientos</string>
+    <string name="ok_amount_text">Aceptar</string>
+    <string name="cancel_amount_text">Cancelar</string>
+    <string name="add_amount">Agregar monto</string>
 
 </resources>

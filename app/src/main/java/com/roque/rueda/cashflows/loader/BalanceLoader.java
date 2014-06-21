@@ -25,7 +25,7 @@ import com.roque.rueda.cashflows.database.observer.DataBaseObserver;
 
 /**
  * Balance loader, executes a query to get to display the current and
- * total amount of money aviable.
+ * total amount of money available.
  *
  * @author Roque Rueda
  * @since 01/06/2014

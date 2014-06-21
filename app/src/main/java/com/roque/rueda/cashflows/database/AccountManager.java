@@ -98,10 +98,15 @@ public class AccountManager {
         if (db != null) {
             return qb.query(db, null, PeriodTable.ACTIVE + " = 1", null, null, null, orderBy);
         } else {
-            throw new IllegalStateException("Can't get the accounts from the database. SQLiteDatabase is null.");
+            throw new IllegalStateException("Can't get the accounts from the database. " +
+                    "SQLiteDatabase is null.");
         }
     }
 
+    /**
+     * Gets the final balance as the sum of all the end balance of each account.
+     * @return Cursor with one tow as the sum of all the final balance of each account.
+     */
     public Cursor getFinalBalance() {
 
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
@@ -111,10 +116,12 @@ public class AccountManager {
 
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();
         if (db != null) {
-            return qb.query(db, new String[] { "SUM(" + AccountTable.FULL_ACCOUNT_END_BALANCE + ")" },
+            return qb.query(db, new String[] { "SUM(" +
+                            AccountTable.FULL_ACCOUNT_END_BALANCE + ")" },
                     null, null, null, null, null);
         } else {
-            throw new IllegalStateException("Can't get the total balance from the database. SQLiteDatabase is null.");
+            throw new IllegalStateException("Can't get the total balance from the database. " +
+                    "SQLiteDatabase is null.");
         }
 
     }
