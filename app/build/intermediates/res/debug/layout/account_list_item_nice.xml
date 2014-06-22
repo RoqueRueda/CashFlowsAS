@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/account_name"
                 android:layout_alignLeft="@+id/account_name"
-                android:text="@string/money_simbol"
+                android:text="@string/money_symbol"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/text_white" />
 

@@ -8,7 +8,7 @@
     <string name="hyphen">-</string>
     <string name="loading_accounts">Loading accounts…</string>
     <string name="logo">logo</string>
-    <string name="money_simbol">$</string>
+    <string name="money_symbol">$</string>
     <string name="actions_content_description">actions</string>
     <string name="movements">Movements</string>
     <string name="total_balance">Total Balance:</string>
@@ -20,5 +20,9 @@
     <string name="ok_amount_text">Ok</string>
     <string name="cancel_amount_text">Cancel</string>
     <string name="add_amount">Add amount</string>
+    <string name="additional">Additional</string>
+    <string name="date">Date</string>
+    <string name="notes">Notes</string>
+    <string name="add_money">Add money</string>
 
 </resources>

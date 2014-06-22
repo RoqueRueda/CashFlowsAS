@@ -32,6 +32,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -114,8 +115,6 @@ public class MainActivity extends FragmentActivity
                 initLoader(LOADER_BALANCE, null, this);
         register(mLoader);
 	}
-	
-	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -123,6 +122,29 @@ public class MainActivity extends FragmentActivity
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     * The default implementation simply returns false to have the normal processing happen
+     * (calling the item's Runnable or sending a message to its Handler as appropriate).
+     * You can use this method for any items for which you would like to do processing without
+     * those other facilities.
+     *
+     * Derived classes should call through to the base class for it to perform the default
+     * menu handling.
+     *
+     * @param item Menu item that was selected.
+     * @return true if the operation completes successfully.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add:
+                Toast.makeText(this, "ItemSelected", Toast.LENGTH_LONG).show();
+        }
+
+        return true;
+    }
 	
 	/////////////////////////////////////////////////////////////////////
 	// ListItemClickNotification Interface members..

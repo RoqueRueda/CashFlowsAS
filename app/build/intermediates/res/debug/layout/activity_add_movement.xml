@@ -14,15 +14,17 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
+        android:id="@+id/amount_text"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:textColor="@color/text_white"
+        android:text="@string/money_symbol" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner"
+        android:id="@+id/accounts_spinner"
         android:layout_below="@+id/divider"
         android:layout_alignParentLeft="true" />
 
@@ -31,15 +33,15 @@
         android:layout_width="wrap_content"
         android:background="@color/divider_blue"
         android:layout_height="1dp"
-        android:layout_alignBottom="@+id/textView" />
+        android:layout_alignBottom="@+id/account_header" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Account"
-        android:id="@+id/textView"
-        android:layout_below="@+id/button"
+        android:text="@string/accounts"
+        android:id="@+id/account_header"
+        android:layout_below="@+id/amount_text"
         android:layout_alignParentLeft="true"
         android:textColor="@color/text_white" />
 
@@ -47,28 +49,56 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Additional"
-        android:id="@+id/textView2"
+        android:text="@string/additional"
+        android:id="@+id/additional_header"
         android:textColor="@color/text_white"
-        android:layout_below="@+id/spinner"
+        android:layout_below="@+id/accounts_spinner"
         android:layout_alignParentLeft="true" />
 
     <View
-        android:id="@+id/aditional_divider"
+        android:id="@+id/additional_divider"
         android:layout_width="wrap_content"
         android:background="@color/divider_blue"
         android:layout_height="1dp"
-        android:layout_alignBottom="@+id/textView2" />
+        android:layout_alignBottom="@+id/additional_header" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Date"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/aditional_divider"
-        android:layout_alignLeft="@+id/aditional_divider"
-        android:textColor="@color/text_white" />
+        android:text="@string/date"
+        android:id="@+id/date_indicator"
+        android:textColor="@color/text_white"
+        android:layout_below="@+id/additional_divider"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/current_date"
+        style="@android:style/Widget.DeviceDefault.Light.Spinner"
+        android:layout_alignTop="@+id/date_indicator"
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Notes"
+        android:id="@+id/textView4"
+        android:textColor="@color/text_white"
+        android:layout_below="@+id/current_date"
+        android:layout_alignParentLeft="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/editText2"
+        android:layout_below="@+id/current_date"
+        android:layout_alignParentRight="true" />
 
 
 </RelativeLayout><!-- From: file:/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/layout/activity_add_movement.xml -->

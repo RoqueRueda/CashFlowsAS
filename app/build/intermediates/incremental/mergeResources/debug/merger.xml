@@ -684,9 +684,15 @@
                 </string>
                 <string name="cancel_amount_text" >Cancel
                 </string>
+                <string name="notes" >Notes
+                </string>
                 <string name="ok_amount_text" >Ok
                 </string>
+                <string name="date" >Date
+                </string>
                 <string name="bank_account" >Bank
+                </string>
+                <string name="money_symbol" >$
                 </string>
                 <string name="hyphen" >-
                 </string>
@@ -698,9 +704,9 @@
                 </string>
                 <string name="add_amount" >Add amount
                 </string>
-                <string name="no_cash_movements" >There\'s no cash movements
+                <string name="additional" >Additional
                 </string>
-                <string name="money_simbol" >$
+                <string name="no_cash_movements" >There\'s no cash movements
                 </string>
                 <string name="initial_period" >Start Period
                 </string>
@@ -711,6 +717,8 @@
                 <string name="accounts" >Accounts
                 </string>
                 <string name="actions_content_description" >actions
+                </string>
+                <string name="add_money" >Add money
                 </string>
             </file>
             <file
@@ -751,11 +759,17 @@
             <file
                 path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values-es/strings.xml"
                 qualifiers="es" >
+                <string name="date" >Fecha
+                </string>
                 <string name="cash_account" >Efectivo
                 </string>
                 <string name="loading_accounts" >Cagando cuentas…
                 </string>
                 <string name="bank_account" >Banco
+                </string>
+                <string name="money_symbol" >$
+                </string>
+                <string name="add_money" >Add money
                 </string>
                 <string name="hyphen" >-
                 </string>
@@ -767,15 +781,17 @@
                 </string>
                 <string name="action_settings" >Configuracion
                 </string>
-                <string name="money_simbol" >$
-                </string>
                 <string name="no_cash_movements" >No hay movimientos
                 </string>
                 <string name="cancel_amount_text" >Cancelar
                 </string>
-                <string name="app_name" >Flujo De Efectivo
+                <string name="notes" >Notas
+                </string>
+                <string name="additional" >Adicional
                 </string>
                 <string name="actions_content_description" >acciones
+                </string>
+                <string name="app_name" >Flujo De Efectivo
                 </string>
                 <string name="accounts" >Cuentas
                 </string>
@@ -834,6 +850,26 @@
                     <!-- API 14 theme customizations can go here. -->
                 </style>
             </file>
+            <file
+                name="ic_action_new"
+                path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/drawable-xxhdpi/ic_action_new.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_action_new"
+                path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/drawable-mdpi/ic_action_new.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_action_new"
+                path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/drawable-xhdpi/ic_action_new.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_action_new"
+                path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/drawable-hdpi/ic_action_new.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
         </source>
         <source path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/generated/res/rs/debug" />
         <source path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/generated/res/generated/debug" />

@@ -32,11 +32,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Fragment used to display a list of accounts that are
@@ -111,13 +107,13 @@ public class AccountListFragment extends ListFragment implements
 		mLoader = (AccountLoader) getLoaderManager().initLoader(LOADER_ID, null, this);
 		register(mLoader);
 		
-		setListerners();
+		setListeners();
 	}
 	
 	/**
 	 * Set the listeners for this ListView.
 	 */
-	private void setListerners() {
+	private void setListeners() {
 		ListView lv = getListView();
 		
 		lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);

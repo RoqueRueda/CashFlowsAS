@@ -8,7 +8,7 @@
     <string name="hyphen">-</string>
     <string name="loading_accounts">Cagando cuentas…</string>
     <string name="logo">logo</string>
-    <string name="money_simbol">$</string>
+    <string name="money_symbol">$</string>
     <string name="actions_content_description">acciones</string>
     <string name="movements">Movemientos</string>
     <string name="total_balance">Saldo Total:</string>
@@ -20,5 +20,9 @@
     <string name="ok_amount_text">Aceptar</string>
     <string name="cancel_amount_text">Cancelar</string>
     <string name="add_amount">Agregar monto</string>
+    <string name="additional">Adicional</string>
+    <string name="date">Fecha</string>
+    <string name="notes">Notas</string>
+    <string name="add_money">Add money</string>
 
 </resources>
