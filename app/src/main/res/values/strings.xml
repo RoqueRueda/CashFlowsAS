@@ -3,7 +3,6 @@
 
     <string name="app_name">CashFlows</string>
     <string name="action_settings">Settings</string>
-
     <string name="accounts">Accounts</string>
     <string name="hyphen">-</string>
     <string name="loading_accounts">Loading accounts…</string>
@@ -24,5 +23,7 @@
     <string name="date">Date</string>
     <string name="notes">Notes</string>
     <string name="add_money">Add money</string>
+    <string name="title_activity_add_amount">AddAmountActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

@@ -609,11 +609,6 @@
                 qualifiers=""
                 type="layout" />
             <file
-                name="activity_add_movement"
-                path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/layout/activity_add_movement.xml"
-                qualifiers=""
-                type="layout" />
-            <file
                 name="activity_main"
                 path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/layout/activity_main.xml"
                 qualifiers=""
@@ -646,13 +641,13 @@
             <file
                 path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values/colors.xml"
                 qualifiers="" >
-                <color name="divider_blue" >#007AF0
+                <color name="divider_blue" >#33B5E5
                 </color>
                 <color name="black" >#80202020
                 </color>
-                <color name="lightgray" >#808080
-                </color>
                 <color name="list_background" >#282828
+                </color>
+                <color name="lightgray" >#808080
                 </color>
                 <color name="list_background_selected" >#3E3E40
                 </color>
@@ -686,6 +681,8 @@
                 </string>
                 <string name="notes" >Notes
                 </string>
+                <string name="title_activity_add_amount" >AddAmountActivity
+                </string>
                 <string name="ok_amount_text" >Ok
                 </string>
                 <string name="date" >Date
@@ -710,15 +707,17 @@
                 </string>
                 <string name="initial_period" >Start Period
                 </string>
-                <string name="app_name" >CashFlows
-                </string>
                 <string name="total_balance" >Total Balance:
                 </string>
-                <string name="accounts" >Accounts
+                <string name="app_name" >CashFlows
+                </string>
+                <string name="add_money" >Add money
                 </string>
                 <string name="actions_content_description" >actions
                 </string>
-                <string name="add_money" >Add money
+                <string name="accounts" >Accounts
+                </string>
+                <string name="hello_world" >Hello world!
                 </string>
             </file>
             <file
@@ -783,15 +782,15 @@
                 </string>
                 <string name="no_cash_movements" >No hay movimientos
                 </string>
-                <string name="cancel_amount_text" >Cancelar
-                </string>
                 <string name="notes" >Notas
+                </string>
+                <string name="cancel_amount_text" >Cancelar
                 </string>
                 <string name="additional" >Adicional
                 </string>
-                <string name="actions_content_description" >acciones
-                </string>
                 <string name="app_name" >Flujo De Efectivo
+                </string>
+                <string name="actions_content_description" >acciones
                 </string>
                 <string name="accounts" >Cuentas
                 </string>
@@ -870,6 +869,27 @@
                 path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/drawable-hdpi/ic_action_new.png"
                 qualifiers="hdpi-v4"
                 type="drawable" />
+            <file
+                path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values-w820dp/dimens.xml"
+                qualifiers="w820dp-v13" >
+                <dimen name="activity_horizontal_margin" >64dp
+                </dimen>
+            </file>
+            <file
+                name="fragment_add_amount"
+                path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/layout/fragment_add_amount.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_add_amount"
+                path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/layout/activity_add_amount.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="add_amount"
+                path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/menu/add_amount.xml"
+                qualifiers=""
+                type="menu" />
         </source>
         <source path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/generated/res/rs/debug" />
         <source path="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/generated/res/generated/debug" />

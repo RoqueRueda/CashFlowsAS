@@ -66,53 +66,56 @@ public final class R {
     }
     public static final class id {
         public static final int account_balance=0x7f090004;
-        public static final int account_header=0x7f09000a;
-        public static final int account_list=0x7f090015;
+        public static final int account_header=0x7f090015;
+        public static final int account_list=0x7f09000c;
         public static final int account_name=0x7f090003;
-        public static final int account_title=0x7f090014;
-        public static final int accounts=0x7f090017;
-        public static final int accounts_spinner=0x7f090008;
-        public static final int action_add=0x7f090022;
+        public static final int account_title=0x7f09000a;
+        public static final int accounts=0x7f09000e;
+        public static final int accounts_spinner=0x7f090014;
+        public static final int action_add=0x7f090024;
         public static final int action_settings=0x7f090023;
         public static final int actions=0x7f090002;
-        public static final int additional_divider=0x7f09000c;
-        public static final int additional_header=0x7f09000b;
-        public static final int amount_text=0x7f090007;
-        public static final int balance_container=0x7f090011;
-        public static final int blnc_header=0x7f090012;
-        public static final int button_content=0x7f09001f;
-        public static final int cancel_amount=0x7f090021;
-        public static final int current_date=0x7f09000e;
-        public static final int date_indicator=0x7f09000d;
-        public static final int dialog_amount_title=0x7f09001c;
-        public static final int divider=0x7f090009;
-        public static final int editText2=0x7f090010;
+        public static final int additional_divider=0x7f090017;
+        public static final int additional_header=0x7f090016;
+        public static final int amount_text=0x7f090013;
+        public static final int balance_container=0x7f090007;
+        public static final int blnc_header=0x7f090008;
+        public static final int button_content=0x7f090020;
+        public static final int cancel_amount=0x7f090022;
+        public static final int container=0x7f090006;
+        public static final int current_date=0x7f090019;
+        public static final int date_indicator=0x7f090018;
+        public static final int dialog_amount_title=0x7f09001d;
+        public static final int divider=0x7f09000b;
+        public static final int editText2=0x7f09001b;
         public static final int icon=0x7f090001;
         public static final int mainContainer=0x7f090000;
         public static final int money_sing=0x7f090005;
-        public static final int movement_container=0x7f090018;
-        public static final int movement_title=0x7f09001a;
-        public static final int movements_container=0x7f090019;
-        public static final int ok_amount=0x7f090020;
-        public static final int root_dialog=0x7f09001b;
-        public static final int root_layout=0x7f090006;
-        public static final int textView4=0x7f09000f;
-        public static final int text_divider=0x7f09001e;
-        public static final int title_accounts=0x7f090016;
-        public static final int title_divider=0x7f09001d;
-        public static final int total_balance=0x7f090013;
+        public static final int movement_container=0x7f09000f;
+        public static final int movement_title=0x7f090011;
+        public static final int movements_container=0x7f090010;
+        public static final int ok_amount=0x7f090021;
+        public static final int root_dialog=0x7f09001c;
+        public static final int root_layout=0x7f090012;
+        public static final int textView4=0x7f09001a;
+        public static final int text_divider=0x7f09001f;
+        public static final int title_accounts=0x7f09000d;
+        public static final int title_divider=0x7f09001e;
+        public static final int total_balance=0x7f090009;
     }
     public static final class layout {
         public static final int account_list_item_nice=0x7f030000;
-        public static final int activity_add_movement=0x7f030001;
+        public static final int activity_add_amount=0x7f030001;
         public static final int activity_main=0x7f030002;
         public static final int activity_main_twopane=0x7f030003;
         public static final int activity_movements=0x7f030004;
         public static final int cash_movements=0x7f030005;
-        public static final int money_dialog=0x7f030006;
+        public static final int fragment_add_amount=0x7f030006;
+        public static final int money_dialog=0x7f030007;
     }
     public static final class menu {
-        public static final int main=0x7f080000;
+        public static final int add_amount=0x7f080000;
+        public static final int main=0x7f080001;
     }
     public static final class string {
         public static final int accounts=0x7f060000;
@@ -126,17 +129,19 @@ public final class R {
         public static final int cancel_amount_text=0x7f060008;
         public static final int cash_account=0x7f060009;
         public static final int date=0x7f06000a;
-        public static final int hyphen=0x7f06000b;
-        public static final int initial_period=0x7f06000c;
-        public static final int loading=0x7f06000d;
-        public static final int loading_accounts=0x7f06000e;
-        public static final int logo=0x7f06000f;
-        public static final int money_symbol=0x7f060010;
-        public static final int movements=0x7f060011;
-        public static final int no_cash_movements=0x7f060012;
-        public static final int notes=0x7f060013;
-        public static final int ok_amount_text=0x7f060014;
-        public static final int total_balance=0x7f060015;
+        public static final int hello_world=0x7f06000b;
+        public static final int hyphen=0x7f06000c;
+        public static final int initial_period=0x7f06000d;
+        public static final int loading=0x7f06000e;
+        public static final int loading_accounts=0x7f06000f;
+        public static final int logo=0x7f060010;
+        public static final int money_symbol=0x7f060011;
+        public static final int movements=0x7f060012;
+        public static final int no_cash_movements=0x7f060013;
+        public static final int notes=0x7f060014;
+        public static final int ok_amount_text=0x7f060015;
+        public static final int title_activity_add_amount=0x7f060016;
+        public static final int total_balance=0x7f060017;
     }
     public static final class style {
         /** 

@@ -16,13 +16,24 @@
 package com.roque.rueda.cashflows.database;
 
 import static com.roque.rueda.cashflows.database.AccountTable.TABLE_ACCOUNTS;
+import static com.roque.rueda.cashflows.database.MovementsTable.ID_ACCOUNT;
+import static com.roque.rueda.cashflows.database.MovementsTable.MOVEMENTS_AMOUNT;
+import static com.roque.rueda.cashflows.database.MovementsTable.MOVEMENTS_DATE;
+import static com.roque.rueda.cashflows.database.MovementsTable.MOVEMENTS_DESCRIPTION;
+import static com.roque.rueda.cashflows.database.MovementsTable.MOVEMENTS_SING;
 import static com.roque.rueda.cashflows.database.MovementsTable.TABLE_MOVEMENTS;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
+
+import com.roque.rueda.cashflows.model.Movement;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 /**
  * Class used to handle the movement of each account .
@@ -72,5 +83,33 @@ public class MovementsManager {
             throw new IllegalStateException("Can't get the movements for the given account.");
         }
     }
+
+//    /**
+//     * Adds a new cash movement in the database.
+//     * @param movement Cash Movement instance with the values used to create a new
+//     *                 record on the database.
+//     * @return True if the operations creates a new id on the database.
+//     */
+//    public boolean addCashMovement(Movement movement) {
+//
+//        ContentValues values = new ContentValues();
+//        values.put(MOVEMENTS_AMOUNT, movement.amount);
+//        values.put(MOVEMENTS_DESCRIPTION, movement.description);
+//
+//        // Create a simple date format in order to store the date.
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+//
+//        values.put(MOVEMENTS_DATE, sdf.format(movement.date));
+//        values.put(MOVEMENTS_SING, movement.sing);
+//        values.put(ID_ACCOUNT, movement.idAccount);
+//
+//        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+//
+//        // Set the result of the operation.
+//        movement.id = db.insert(TABLE_MOVEMENTS, null, values);
+//
+//        // If a error occurs then id will be "-1".
+//        return (movement.id != -1);
+//    }
 
 }

@@ -101,4 +101,5 @@
         android:layout_alignParentRight="true" />
 
 
-</RelativeLayout><!-- From: file:/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/layout/activity_add_movement.xml -->
+</RelativeLayout>
+<!-- From: file:/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/layout/fragment_add_amount.xml -->

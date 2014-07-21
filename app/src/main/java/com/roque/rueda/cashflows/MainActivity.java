@@ -140,7 +140,11 @@ public class MainActivity extends FragmentActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                Toast.makeText(this, "ItemSelected", Toast.LENGTH_LONG).show();
+            {
+                Intent addActivity = new Intent(this, AddAmountActivity.class);
+                startActivity(addActivity);
+                break;
+            }
         }
 
         return true;

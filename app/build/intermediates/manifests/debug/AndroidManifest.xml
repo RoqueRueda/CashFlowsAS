@@ -30,6 +30,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AccountMovementsActivity" />
         </activity>
+        <activity
+            android:name="com.roque.rueda.cashflows.AddAmountActivity"
+            android:label="@string/title_activity_add_amount" >
+        </activity>
     </application>
 
 </manifest>

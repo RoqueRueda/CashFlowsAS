@@ -6,7 +6,7 @@
 
     <color name="black">#80202020</color>
     <color name="darkgray">#333333</color>
-    <color name="divider_blue">#007AF0</color>
+    <color name="divider_blue">#33B5E5</color>
     <color name="full_black">#000000</color>
     <color name="lightgray">#808080</color>
     <color name="list_background">#282828</color>
@@ -32,6 +32,7 @@
     <string name="cancel_amount_text">Cancel</string>
     <string name="cash_account">Cash</string>
     <string name="date">Date</string>
+    <string name="hello_world">Hello world!</string>
     <string name="hyphen">-</string>
     <string name="initial_period">Start Period</string>
     <string name="loading">Loading</string>
@@ -42,6 +43,7 @@
     <string name="no_cash_movements">There\'s no cash movements</string>
     <string name="notes">Notes</string>
     <string name="ok_amount_text">Ok</string>
+    <string name="title_activity_add_amount">AddAmountActivity</string>
     <string name="total_balance">Total Balance:</string>
     <!-- From: file:/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values/styles.xml -->
     <eat-comment />
