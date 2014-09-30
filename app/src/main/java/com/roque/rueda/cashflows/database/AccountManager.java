@@ -92,11 +92,15 @@ public class AccountManager {
 		qb.setTables(TABLE_PERIODS + JOIN + TABLE_ACCOUNTS +
 				" ON " + AccountTable.ID_PERIOD + " = " + PeriodTable.FULL_ID);
 		
-		String orderBy = AccountTable.ACCOUNT_NAME + " DESC";
+		String orderBy = AccountTable.FULL_ACCOUNT_NAME + " DESC";
 		
 		SQLiteDatabase db = mOpenHelper.getReadableDatabase();
         if (db != null) {
-            return qb.query(db, null, PeriodTable.ACTIVE + " = 1", null, null, null, orderBy);
+            String[] columns = new String[] { AccountTable.FULL_ID,
+                AccountTable.FULL_INITIAL_BALANCE, AccountTable.FULL_ACCOUNT_NAME,
+                AccountTable.FULL_ACCOUNT_END_BALANCE, AccountTable.FULL_ACCOUNT_NUMBER };
+            return qb.query(db, columns, PeriodTable.FULL_ACTIVE + " = 1",
+                    null, null, null, orderBy);
         } else {
             throw new IllegalStateException("Can't get the accounts from the database. " +
                     "SQLiteDatabase is null.");
@@ -124,6 +128,32 @@ public class AccountManager {
                     "SQLiteDatabase is null.");
         }
 
+    }
+
+    /**
+     * Gets the basic information for all the accounts for the current period.
+     * (Name, Picture and Id).
+     *
+     * @return Return a cursor with the result data of the query.
+     */
+    public Cursor getShortAccountInfo() {
+
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        qb.setTables(TABLE_PERIODS + JOIN + TABLE_ACCOUNTS +
+                " ON " + AccountTable.ID_PERIOD + " = " + PeriodTable.FULL_ID);
+
+        String orderBy = AccountTable.FULL_ACCOUNT_NAME + " DESC";
+
+        SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+        if (db != null) {
+            String[] columns = new String[] { AccountTable.FULL_ID,
+                    AccountTable.FULL_ACCOUNT_NAME, AccountTable.FULL_ACCOUNT_NUMBER };
+            return qb.query(db, columns, PeriodTable.FULL_ACTIVE + " = 1",
+                    null, null, null, orderBy);
+        } else {
+            throw new IllegalStateException("Can't get the accounts from the database. " +
+                    "SQLiteDatabase is null.");
+        }
     }
 
     /**

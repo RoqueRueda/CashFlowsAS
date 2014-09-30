@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainContainer"
+    android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:background="@color/list_background"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:descendantFocusability="blocksDescendants" >
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:contentDescription="@string/logo"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_bank_cards_white" />
+
+    <TextView
+        android:id="@+id/account_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/text_white"
+        android:fontFamily="sans-serif-light"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/icon" />
+
+</RelativeLayout>

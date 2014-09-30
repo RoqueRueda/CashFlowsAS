@@ -20,6 +20,7 @@ import com.roque.rueda.cashflows.database.observer.DataBaseObserver;
 import com.roque.rueda.cashflows.database.observer.DatabaseMessenger;
 import com.roque.rueda.cashflows.fragments.MovementsListFragment;
 import com.roque.rueda.cashflows.loader.BalanceLoader;
+import com.roque.rueda.cashflows.util.StringFormatter;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -311,7 +312,8 @@ public class MainActivity extends FragmentActivity
         }
 
         data.moveToFirst();
-        mTotalBalance.setText(String.format("%.2f", data.getDouble(0)));
+        double total = data.getDouble(0);
+        mTotalBalance.setText(StringFormatter.formatCurrency(total));
     }
 
     /**

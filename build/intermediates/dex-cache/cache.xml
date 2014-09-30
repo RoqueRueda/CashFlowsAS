@@ -2,10 +2,22 @@
 <pre-dex-items>
 
     <item
-        dex="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-fe930dc68beb1e566675ce71b270d4091c6c249b.jar"
-        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        dex="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/intermediates/pre-dexed/debug/classes-8271bb48bfc9b4220f53de7187400044e9965e54.jar"
+        jar="/Users/roquerueda/Documents/GitHub/CashFlowsAS/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+    <item
+        dex="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-c5e8c42337961c070fb42667cf5e7a2e44fa317d.jar"
+        jar="/Users/roquerueda/Documents/adt-bundle-mac-x86_64-20140321/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+    <item
+        dex="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-e0c7fa05f04ca0828c085feb67309d66f6b92865.jar"
+        jar="/Users/roquerueda/Documents/GitHub/CashFlowsAS/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
 
 </pre-dex-items>

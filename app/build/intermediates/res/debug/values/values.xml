@@ -8,9 +8,10 @@
     <color name="darkgray">#333333</color>
     <color name="divider_blue">#33B5E5</color>
     <color name="full_black">#000000</color>
-    <color name="lightgray">#808080</color>
+    <color name="light_gray">#808080</color>
     <color name="list_background">#282828</color>
     <color name="list_background_selected">#3E3E40</color>
+    <color name="spinner_background">#ff2d2d2d</color>
     <color name="text_white">#FFFFFF</color>
     <!-- From: file:/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values/dimens.xml -->
     <eat-comment />
@@ -21,19 +22,28 @@
     <!-- From: file:/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
-    <string name="accounts">Accounts</string>
+    <string name="accept">Accept</string>
+    <string name="account_uppercase">ACCOUNT</string>
+    <string name="accounts">ACCOUNTS</string>
     <string name="action_settings">Settings</string>
     <string name="actions_content_description">actions</string>
     <string name="add_amount">Add amount</string>
     <string name="add_money">Add money</string>
     <string name="additional">Additional</string>
+    <string name="amount_dialog_label">Type the operation amount.</string>
+    <string name="amount_dialog_title">Introduce your amount</string>
+    <string name="amount_uppercase">AMOUNT</string>
     <string name="app_name">CashFlows</string>
     <string name="bank_account">Bank</string>
+    <string name="cancel">Cancel</string>
+    <string name="cancel_amount">Cancel</string>
     <string name="cancel_amount_text">Cancel</string>
     <string name="cash_account">Cash</string>
     <string name="date">Date</string>
+    <string name="date_upper">DATE</string>
     <string name="hello_world">Hello world!</string>
     <string name="hyphen">-</string>
+    <string name="information_amount">press to change amount</string>
     <string name="initial_period">Start Period</string>
     <string name="loading">Loading</string>
     <string name="loading_accounts">Loading accounts…</string>
@@ -42,9 +52,11 @@
     <string name="movements">Movements</string>
     <string name="no_cash_movements">There\'s no cash movements</string>
     <string name="notes">Notes</string>
+    <string name="notes_upper">NOTES</string>
     <string name="ok_amount_text">Ok</string>
+    <string name="save_amount">Save</string>
     <string name="title_activity_add_amount">AddAmountActivity</string>
-    <string name="total_balance">Total Balance:</string>
+    <string name="total_balance">TOTAL BALANCE:</string>
     <!-- From: file:/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values/styles.xml -->
     <eat-comment />
 

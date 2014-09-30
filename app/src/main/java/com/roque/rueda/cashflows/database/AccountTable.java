@@ -63,7 +63,7 @@ public interface AccountTable extends BaseColumns{
 	 * Column name used to store the name of the account.
 	 * <b>TYPE TEXT</b>.
 	 */
-	public static final String FULL_ACCOUNT_INITIAL_BALANCE = TABLE_ACCOUNTS + "." + ACCOUNT_NAME;
+	public static final String FULL_ACCOUNT_NAME = TABLE_ACCOUNTS + "." + ACCOUNT_NAME;
 	
 	/**
 	 * Column name used to store the end balance of the table.

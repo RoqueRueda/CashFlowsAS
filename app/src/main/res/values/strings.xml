@@ -3,14 +3,14 @@
 
     <string name="app_name">CashFlows</string>
     <string name="action_settings">Settings</string>
-    <string name="accounts">Accounts</string>
+    <string name="accounts">ACCOUNTS</string>
     <string name="hyphen">-</string>
     <string name="loading_accounts">Loading accounts…</string>
     <string name="logo">logo</string>
     <string name="money_symbol">$</string>
     <string name="actions_content_description">actions</string>
     <string name="movements">Movements</string>
-    <string name="total_balance">Total Balance:</string>
+    <string name="total_balance">TOTAL BALANCE:</string>
     <string name="initial_period">Start Period</string>
     <string name="bank_account">Bank</string>
     <string name="cash_account">Cash</string>
@@ -25,5 +25,16 @@
     <string name="add_money">Add money</string>
     <string name="title_activity_add_amount">AddAmountActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="amount_dialog_title">Introduce your amount</string>
+    <string name="save_amount">Save</string>
+    <string name="cancel_amount">Cancel</string>
+    <string name="amount_dialog_label">Type the operation amount.</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+    <string name="amount_uppercase">AMOUNT</string>
+    <string name="information_amount">press to change amount</string>
+    <string name="account_uppercase">ACCOUNT</string>
+    <string name="date_upper">DATE</string>
+    <string name="notes_upper">NOTES</string>
 
 </resources>

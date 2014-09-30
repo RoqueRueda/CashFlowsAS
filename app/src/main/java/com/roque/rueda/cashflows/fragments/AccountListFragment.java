@@ -117,7 +117,7 @@ public class AccountListFragment extends ListFragment implements
 		ListView lv = getListView();
 		
 		lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		lv.setDivider(getResources().getDrawable(R.color.divider_blue));
+		lv.setDivider(getResources().getDrawable(R.color.text_white));
 		lv.setDividerHeight(1);
 	}
 	

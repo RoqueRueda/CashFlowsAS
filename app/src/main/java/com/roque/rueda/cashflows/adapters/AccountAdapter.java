@@ -60,9 +60,9 @@ public class AccountAdapter extends CursorAdapter {
 	/**
 	 * Bind an existing view to the data pointed to by cursor.
 	 * @param view 		Existing view, returned earlier by newView
-	 * @param ctx 			Interface to application's global information
-	 * @param cursor		The cursor from which to get the data. 
-	 * 								The cursor is already moved to the correct position.
+	 * @param ctx 		Interface to application's global information
+	 * @param cursor	The cursor from which to get the data.
+	 * 				    The cursor is already moved to the correct position.
 	 * 
 	 */
 	@Override
@@ -83,10 +83,10 @@ public class AccountAdapter extends CursorAdapter {
 	/**
 	 * Makes a new view to hold the data pointed to by cursor.
 	 * 
-	 * @param context			Interface to application's global information.
-	 * @param cursor 			The cursor from which to get the data. 
-	 * 									The cursor is already moved to the correct position.
-	 *  @param parent 		The parent to which the new view is attached to.
+	 * @param context	Interface to application's global information.
+	 * @param cursor 	The cursor from which to get the data.
+	 * 					The cursor is already moved to the correct position.
+	 *  @param parent 	The parent to which the new view is attached to.
 	 * 
 	 */
 	@Override

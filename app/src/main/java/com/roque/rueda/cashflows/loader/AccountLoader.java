@@ -32,7 +32,8 @@ import com.roque.rueda.cashflows.database.observer.DataBaseObserver;
  * @version 1.0
  *
  */
-public class AccountLoader extends AsyncTaskLoader<Cursor> implements DataBaseObserver {
+public class AccountLoader extends AsyncTaskLoader<Cursor>
+        implements DataBaseObserver {
 
 	private static final String TAG = "AccountLoader";
 	private static final boolean DEBUG = true;
@@ -94,7 +95,8 @@ public class AccountLoader extends AsyncTaskLoader<Cursor> implements DataBaseOb
 		
 		if (isReset()) {
 			if (DEBUG) {
-				Log.i(TAG, "== Warning! A call to deliver result with a query come on a reset status. ==");
+				Log.i(TAG, "== Warning! A call to deliver result with a query come on a " +
+                        "reset status. ==");
 			}
 			// The loader has been reset; ignore the result and clean the data.
 			if (data != null) {
@@ -184,7 +186,7 @@ public class AccountLoader extends AsyncTaskLoader<Cursor> implements DataBaseOb
 	@Override
 	protected void onStopLoading() {
 		if (DEBUG) {
-			Log.i(TAG, "== onStopLoading() Stoping the account loader... ==");
+			Log.i(TAG, "== onStopLoading() Stops the account loader... ==");
 		}
 		
 		// Stop any current load.

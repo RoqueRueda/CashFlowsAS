@@ -11,65 +11,48 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/full_black">
 
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/amount_text"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
         android:background="@android:color/transparent"
         android:textColor="@color/text_white"
-        android:text="@string/money_symbol" />
+        android:fontFamily="sans-serif-light"
+        android:text="@string/money_symbol"
+        android:layout_below="@+id/amount_text_label"
+        android:layout_alignRight="@+id/accounts_spinner" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/accounts_spinner"
-        android:layout_below="@+id/divider"
-        android:layout_alignParentLeft="true" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="wrap_content"
-        android:background="@color/divider_blue"
-        android:layout_height="1dp"
-        android:layout_alignBottom="@+id/account_header" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/accounts"
-        android:id="@+id/account_header"
-        android:layout_below="@+id/amount_text"
-        android:layout_alignParentLeft="true"
-        android:textColor="@color/text_white" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/additional"
-        android:id="@+id/additional_header"
-        android:textColor="@color/text_white"
-        android:layout_below="@+id/accounts_spinner"
-        android:layout_alignParentLeft="true" />
-
-    <View
-        android:id="@+id/additional_divider"
-        android:layout_width="wrap_content"
-        android:background="@color/divider_blue"
-        android:layout_height="1dp"
-        android:layout_alignBottom="@+id/additional_header" />
+        android:fontFamily="sans-serif-light"
+        android:layout_below="@+id/account_header"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/date"
+        android:text="@string/account_uppercase"
+        android:layout_marginTop="5dp"
+        android:id="@+id/account_header"
+        android:textColor="@color/light_gray"
+        android:textStyle="bold"
+        android:layout_below="@+id/amount_text"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/date_upper"
         android:id="@+id/date_indicator"
-        android:textColor="@color/text_white"
-        android:layout_below="@+id/additional_divider"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/light_gray"
+        android:textStyle="bold"
+        android:layout_below="@+id/accounts_spinner"
         android:layout_alignParentLeft="true" />
 
     <TextView
@@ -77,27 +60,57 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/current_date"
+        android:textColor="@color/text_white"
+        android:fontFamily="sans-serif-light"
         style="@android:style/Widget.DeviceDefault.Light.Spinner"
-        android:layout_alignTop="@+id/date_indicator"
-        android:layout_alignParentRight="true" />
+        android:layout_below="@+id/date_indicator"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/accounts_spinner" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Notes"
-        android:id="@+id/textView4"
-        android:textColor="@color/text_white"
+        android:text="@string/notes_upper"
+        android:id="@+id/notesLabel"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/light_gray"
         android:layout_below="@+id/current_date"
         android:layout_alignParentLeft="true" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/editText2"
-        android:layout_below="@+id/current_date"
+        android:textColor="@color/text_white"
+        android:id="@+id/notesText"
+        android:fontFamily="sans-serif-light"
+        android:layout_below="@+id/notesLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/current_date"
+        android:gravity="top|left"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/amount_uppercase"
+        android:id="@+id/amount_text_label"
+        android:textColor="@color/light_gray"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/information_amount"
+        android:id="@+id/instructions_text"
+        android:textColor="@color/light_gray"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true" />
 
 

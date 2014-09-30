@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.roque.rueda.cashflows.R;
 import com.roque.rueda.cashflows.model.Account;
+import com.roque.rueda.cashflows.util.StringFormatter;
 
 /**
  * View holder class used to optimize scroll of the account list view.
@@ -67,53 +68,53 @@ public class AccountView {
 	 * Bind the model data with the widgets of this view.
 	 */
 	private void bindModel() {
-		getImage(mModel.photoNumber);
-		mAccountName.setText(mModel.name);
-		mAccountBalance.setText(String.format("%.2f", mModel.endBalance));
+		getImage(mModel.photoNumber, mResources, mIcon);
+		mAccountName.setText(mModel.name.toUpperCase());
+		mAccountBalance.setText(StringFormatter.formatCurrency(mModel.endBalance));
 	}
 	
 	/**
 	 * Get the image Icon base on the photo number store on the database.
 	 * @param photoNumber			Photo number that is store in the database.
 	 */
-	private void getImage(long photoNumber) {
+	public static void getImage(long photoNumber, Resources resources, ImageView img) {
 		
 		// Get the icon for the account base on the account number.
 		
 		int imageNumber = Long.valueOf(photoNumber).intValue();
 		switch (imageNumber) {
 		case 1:
-			mIcon.setImageDrawable(mResources.getDrawable(R.drawable.ic_bank_cards_white));
+			img.setImageDrawable(resources.getDrawable(R.drawable.ic_bank_cards_white));
 			break;
 		case 2:
-			mIcon.setImageDrawable(mResources.getDrawable(R.drawable.ic_banknotes_white));
+			img.setImageDrawable(resources.getDrawable(R.drawable.ic_banknotes_white));
 			break;
 		case 3:
-			mIcon.setImageDrawable(mResources.getDrawable(R.drawable.ic_cash_receiving_white));
+			img.setImageDrawable(resources.getDrawable(R.drawable.ic_cash_receiving_white));
 			break;
 		case 4:
-			mIcon.setImageDrawable(mResources.getDrawable(R.drawable.ic_check_book_white));
+			img.setImageDrawable(resources.getDrawable(R.drawable.ic_check_book_white));
 			break;
 		case 5:
-			mIcon.setImageDrawable(mResources.getDrawable(R.drawable.ic_coins_white));
+			img.setImageDrawable(resources.getDrawable(R.drawable.ic_coins_white));
 			break;
 		case 6:
-			mIcon.setImageDrawable(mResources.getDrawable(R.drawable.ic_money_bag_white));
+			img.setImageDrawable(resources.getDrawable(R.drawable.ic_money_bag_white));
 			break;
 		case 7:
-			mIcon.setImageDrawable(mResources.getDrawable(R.drawable.ic_moneybox_white));
+			img.setImageDrawable(resources.getDrawable(R.drawable.ic_moneybox_white));
 			break;
 		case 8:
-			mIcon.setImageDrawable(mResources.getDrawable(R.drawable.ic_purse_white));
+			img.setImageDrawable(resources.getDrawable(R.drawable.ic_purse_white));
 			break;
 		case 9:
-			mIcon.setImageDrawable(mResources.getDrawable(R.drawable.ic_shopping_basket_white));
+			img.setImageDrawable(resources.getDrawable(R.drawable.ic_shopping_basket_white));
 			break;
 		case 10:
-			mIcon.setImageDrawable(mResources.getDrawable(R.drawable.ic_wallet_white));
+			img.setImageDrawable(resources.getDrawable(R.drawable.ic_wallet_white));
 			break;
 		default:
-			mIcon.setImageDrawable(mResources.getDrawable(R.drawable.ic_bank_cards_white));
+			img.setImageDrawable(resources.getDrawable(R.drawable.ic_bank_cards_white));
 			break;
 		}
 	}

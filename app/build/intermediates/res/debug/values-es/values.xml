@@ -4,18 +4,27 @@
     <!-- From: file:/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values-es/strings.xml -->
     <eat-comment />
 
-    <string name="accounts">Cuentas</string>
+    <string name="accept">Aceptar</string>
+    <string name="account_uppercase">CUENTA</string>
+    <string name="accounts">CUENTAS</string>
     <string name="action_settings">Configuracion</string>
     <string name="actions_content_description">acciones</string>
     <string name="add_amount">Agregar monto</string>
-    <string name="add_money">Add money</string>
+    <string name="add_money">Agregar dinero</string>
     <string name="additional">Adicional</string>
+    <string name="amount_dialog_label">Introduce el monto de la operación.</string>
+    <string name="amount_dialog_title">Introduce el monto</string>
+    <string name="amount_uppercase">MONTO</string>
     <string name="app_name">Flujo De Efectivo</string>
     <string name="bank_account">Banco</string>
+    <string name="cancel">Cancelar</string>
+    <string name="cancel_amount">Cancelar</string>
     <string name="cancel_amount_text">Cancelar</string>
     <string name="cash_account">Efectivo</string>
     <string name="date">Fecha</string>
+    <string name="date_upper">FECHA</string>
     <string name="hyphen">-</string>
+    <string name="information_amount">presiona para cambiar</string>
     <string name="initial_period">Periodo Inicial</string>
     <string name="loading">Cargando</string>
     <string name="loading_accounts">Cagando cuentas…</string>
@@ -24,7 +33,9 @@
     <string name="movements">Movemientos</string>
     <string name="no_cash_movements">No hay movimientos</string>
     <string name="notes">Notas</string>
+    <string name="notes_upper">NOTAS</string>
     <string name="ok_amount_text">Aceptar</string>
-    <string name="total_balance">Saldo Total:</string>
+    <string name="save_amount">Guardar</string>
+    <string name="total_balance">SALDO TOTAL:</string>
 
 </resources>

@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,31 +23,34 @@
     For more on layout aliases, see:
     http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
     -->
-	
-	<RelativeLayout
+
+    <TextView
+        android:id="@+id/balance_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/total_balance"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/light_gray"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
+
+    <RelativeLayout
 	    android:id="@+id/balance_container"
 	    android:layout_width="match_parent"
 	    android:layout_height="70dp"
-	    android:background="@color/black" >
+	    android:background="@color/black"
+        android:layout_below="@+id/balance_header"
+        android:layout_alignParentLeft="true">
 
-	    <TextView
-	        android:id="@+id/blnc_header"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_above="@+id/total_balance"
-	        android:layout_alignParentLeft="true"
-	        android:layout_marginLeft="20dp"
-	        android:text="@string/total_balance"
-	        android:textAppearance="?android:attr/textAppearanceSmall"
-	        android:textColor="@color/text_white" />
-
-	    <TextView
+        <TextView
 	        android:id="@+id/total_balance"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentRight="true"
 	        android:layout_centerVertical="true"
 	        android:layout_marginRight="30dp"
+            android:fontFamily="sans-serif-light"
             android:textAppearance="?android:attr/textAppearanceLarge"
 	        android:textColor="@color/text_white" />
 	    
@@ -59,20 +62,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/accounts"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/text_white" />
-    
-	<View
-        android:id="@+id/divider"
-        android:layout_width="wrap_content"
-        android:background="@color/divider_blue"
-        android:layout_height="1dp" />
-    
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/light_gray"
+        android:textStyle="bold"
+        android:layout_below="@+id/balance_container"
+        android:layout_alignParentLeft="true" />
+
     <fragment
         android:id="@+id/account_list"
         android:name="com.roque.rueda.cashflows.fragments.AccountListFragment"
         android:layout_width="match_parent"
     	android:layout_height="match_parent"
-        tools:layout="@android:layout/list_content" />
+        tools:layout="@android:layout/list_content"
+        android:layout_below="@+id/account_title"
+        android:layout_alignParentLeft="true" />
     
-</LinearLayout>
+</RelativeLayout>

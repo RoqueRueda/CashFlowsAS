@@ -47,8 +47,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/account_balance"
                 android:layout_toRightOf="@+id/icon"
+                android:textStyle="bold"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/lightgray" />
+                android:textColor="@color/light_gray" />
 
             <TextView
                 android:id="@+id/account_balance"
@@ -56,18 +57,9 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/text_white"
+                android:fontFamily="sans-serif-light"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/actions" />
-
-            <TextView
-                android:id="@+id/money_sing"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/account_name"
-                android:layout_alignLeft="@+id/account_name"
-                android:text="@string/money_symbol"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/text_white" />
 
         </RelativeLayout>
 
