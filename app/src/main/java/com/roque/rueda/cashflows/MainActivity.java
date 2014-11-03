@@ -19,22 +19,19 @@ import com.roque.rueda.android.messenger.ListItemClickNotification;
 import com.roque.rueda.cashflows.database.observer.DataBaseObserver;
 import com.roque.rueda.cashflows.database.observer.DatabaseMessenger;
 import com.roque.rueda.cashflows.fragments.MovementsListFragment;
+import com.roque.rueda.cashflows.hepers.FragmentDataNotifier;
 import com.roque.rueda.cashflows.loader.BalanceLoader;
 import com.roque.rueda.cashflows.util.StringFormatter;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,7 +52,11 @@ public class MainActivity extends FragmentActivity
 	private static final String TAG = "MainActivity";
 	private static final boolean DEBUG = true;
     private static final int LOADER_BALANCE = 2;
-	
+
+    public static final int REQUEST_CODE = 2407;
+    public static final String ADD_MOVEMENT_RESULT = "add movement";
+    public static final String SUBSTRACT_MOVEMENT = "addSubstract";
+
 	// Is this activity showing two, pane.
 	private boolean mIsTwoPane;
 
@@ -66,8 +67,9 @@ public class MainActivity extends FragmentActivity
     private TextView mTotalBalance;
 
     private BalanceLoader mLoader;
-	
-	/**
+    private FragmentDataNotifier mNotifier;
+
+    /**
 	 * 
 	 * This method handles the creation of the activity. Base
 	 * on the activity life cycle.
@@ -142,16 +144,56 @@ public class MainActivity extends FragmentActivity
         switch (item.getItemId()) {
             case R.id.action_add:
             {
-                Intent addActivity = new Intent(this, AddAmountActivity.class);
-                startActivity(addActivity);
+
+                // Calls to the add activity.
+                Intent addIntent = new Intent(this, AddAmountActivity.class);
+                addIntent.putExtra(SUBSTRACT_MOVEMENT, false);
+                startActivityForResult(addIntent, REQUEST_CODE);
+                break;
+            }
+            case R.id.action_subtract:
+            {
+                Intent minusIntent = new Intent(this, AddAmountActivity.class);
+                minusIntent.putExtra(SUBSTRACT_MOVEMENT, true);
+                startActivityForResult(minusIntent, REQUEST_CODE);
+                break;
+            }
+            default:
+            {
+                Toast.makeText(this, R.string.invalid_option, Toast.LENGTH_LONG).show();
                 break;
             }
         }
 
         return true;
     }
-	
-	/////////////////////////////////////////////////////////////////////
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (resultCode){
+            case REQUEST_CODE: {
+                // Get the result of the add activity.
+                if (data != null) {
+                    boolean addResult = data.getBooleanExtra(ADD_MOVEMENT_RESULT, false);
+
+                    if (addResult) {
+                        // Calls to client Fragment to update data.
+                        mNotifier.notifyDataRefresh();
+                        mLoader.notifyDatabaseChange();
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    public void setFragmentClient(FragmentDataNotifier notifier) {
+        mNotifier = notifier;
+    }
+
+    /////////////////////////////////////////////////////////////////////
 	// ListItemClickNotification Interface members..
 	///////////////////////////////////////////////////////////////////
 	

@@ -17,9 +17,15 @@ package com.roque.rueda.cashflows.util;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteStatement;
+import android.util.Log;
 
+import com.roque.rueda.cashflows.database.AccountTable;
 import com.roque.rueda.cashflows.database.CashFlowsOpenHelper;
+import com.roque.rueda.cashflows.database.MovementsTable;
 import com.roque.rueda.cashflows.model.Movement;
 
 import java.text.SimpleDateFormat;
@@ -30,6 +36,12 @@ import static com.roque.rueda.cashflows.database.MovementsTable.MOVEMENTS_DESCRI
 import static com.roque.rueda.cashflows.database.MovementsTable.MOVEMENTS_DATE;
 import static com.roque.rueda.cashflows.database.MovementsTable.MOVEMENTS_SING;
 import static com.roque.rueda.cashflows.database.MovementsTable.TABLE_MOVEMENTS;
+import static com.roque.rueda.cashflows.database.MovementsTable.ID_ACCOUNT;
+import static com.roque.rueda.cashflows.database.AccountTable.ACCOUNT_NAME;
+import static com.roque.rueda.cashflows.database.AccountTable.ID_PERIOD;
+import static com.roque.rueda.cashflows.database.AccountTable.ACCOUNT_INITIAL_BALANCE;
+import static com.roque.rueda.cashflows.database.AccountTable.ACCOUNT_END_BALANCE;
+import static com.roque.rueda.cashflows.database.AccountTable.TABLE_ACCOUNTS;
 
 /**
  * Instance used to store a positive cash movement in the database.
@@ -43,6 +55,8 @@ public class AddPositiveCash implements AddCashState {
 
     private Context mContext;
     private CashFlowsOpenHelper mOpenHelper;
+    private static final int SUM_COLUMN_INDEX = 0;
+    private static final String TAG = "AddCashState";
 
     /**
      * Creates a new instance using the given
@@ -66,21 +80,58 @@ public class AddPositiveCash implements AddCashState {
         mOpenHelper = new CashFlowsOpenHelper(mContext);
 
         ContentValues values = new ContentValues();
-        values.put(MOVEMENTS_AMOUNT, m.amount);
-        values.put(MOVEMENTS_DESCRIPTION, m.description);
+        values.put(MOVEMENTS_AMOUNT, m.getAmount());
+        values.put(MOVEMENTS_DESCRIPTION, m.getDescription());
 
         // Date format to save a date as string.
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
                 Locale.getDefault());
 
-        values.put(MOVEMENTS_DATE, dateFormat.format(m.date));
-        values.put(MOVEMENTS_SING, m.sing);
+        values.put(MOVEMENTS_DATE, dateFormat.format(m.getDate()));
+        values.put(MOVEMENTS_SING, m.getSing());
+        values.put(ID_ACCOUNT, m.getIdAccount());
+
+        // Columns for the sum of amounts.
+        String[] columns = new String[]{ "SUM(" + MOVEMENTS_AMOUNT + ")" };
 
         // Get a database.
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            Cursor totalAccountMovements = db.query(MovementsTable.TABLE_MOVEMENTS,
+                    columns, ID_ACCOUNT + " = " + m.getIdAccount(), null, null, null, null);
+            double endBalance = 0;
+            if(totalAccountMovements.moveToFirst()) {
+                endBalance = totalAccountMovements.getDouble(SUM_COLUMN_INDEX);
+            }
 
-        m.id = db.insert(TABLE_MOVEMENTS, null, values);
+            // Save the movement.
+            m.setId(db.insert(TABLE_MOVEMENTS, null, values));
 
-        return (m.id > 0);
+            // Update the account final balance.
+            endBalance += m.getAmount();
+
+            values.clear();
+            values.put(ACCOUNT_END_BALANCE, endBalance);
+
+            Log.i(TAG, "Saving a positive cash movement of " + m.getAmount() +
+                    " in the account " + m.getIdAccount());
+
+            Log.i(TAG, "Saving final balance " + endBalance +
+                    " in the account " + m.getIdAccount());
+
+            int affectedRows = db.update(TABLE_ACCOUNTS, values,
+                    AccountTable._ID + " = " + m.getIdAccount(), null);
+            db.setTransactionSuccessful();
+
+            // Return the operation result.
+            return (m.getId() > 0 && affectedRows > 0);
+        } catch (SQLiteException sqlEx) {
+            Log.e(TAG, "Problem saving a positive movement: " + sqlEx.getMessage());
+            return false;
+        } finally {
+            db.endTransaction();
+        }
+        // Gets the sum of the amounts.
     }
 }

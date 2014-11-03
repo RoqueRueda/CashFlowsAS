@@ -30,31 +30,78 @@ public class Movement {
     /**
      * Id of the movement.
      */
-    public long id;
+    private long id;
 
     /**
      * Amount of money that will be used on this movement.
      */
-    public double amount;
+    private double amount;
 
     /**
      * Description for this movement.
      */
-    public String description;
+    private String description;
 
     /**
      * Date of the movement.
      */
-    public Date date;
+    private Date date;
 
     /**
      * Sing of the movement ("+" or "-").
      */
-    public String sing;
+    private String sing;
 
     /**
      * Account to witch this movement belongs.
      */
-    public long idAccount;
+    private long idAccount;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getSing() {
+        return sing;
+    }
+
+    public void setSing(String sing) {
+        this.sing = sing;
+    }
+
+    public long getIdAccount() {
+        return idAccount;
+    }
+
+    public void setIdAccount(long idAccount) {
+        this.idAccount = idAccount;
+    }
 }

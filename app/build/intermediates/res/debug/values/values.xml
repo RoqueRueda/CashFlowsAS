@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- From: file:/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values/colors.xml -->
-    <eat-comment />
-
+    <eat-comment/>
     <color name="black">#80202020</color>
     <color name="darkgray">#333333</color>
     <color name="divider_blue">#33B5E5</color>
@@ -14,14 +12,12 @@
     <color name="spinner_background">#ff2d2d2d</color>
     <color name="text_white">#FFFFFF</color>
     <!-- From: file:/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values/dimens.xml -->
-    <eat-comment />
-
+    <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="amount_dialog">20sp</dimen>
     <!-- From: file:/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values/strings.xml -->
-    <eat-comment />
-
+    <eat-comment/>
     <string name="accept">Accept</string>
     <string name="account_uppercase">ACCOUNT</string>
     <string name="accounts">ACCOUNTS</string>
@@ -45,22 +41,26 @@
     <string name="hyphen">-</string>
     <string name="information_amount">press to change amount</string>
     <string name="initial_period">Start Period</string>
+    <string name="invalid_option">Invalid Option.</string>
     <string name="loading">Loading</string>
     <string name="loading_accounts">Loading accounts…</string>
     <string name="logo">logo</string>
     <string name="money_symbol">$</string>
+    <string name="movement_save_message">Movement stored.</string>
     <string name="movements">Movements</string>
+    <string name="negative_movement">Negative movement.</string>
     <string name="no_cash_movements">There\'s no cash movements</string>
     <string name="notes">Notes</string>
     <string name="notes_upper">NOTES</string>
     <string name="ok_amount_text">Ok</string>
+    <string name="positive_movement">Positive movement.</string>
     <string name="save_amount">Save</string>
+    <string name="time_date_dialog_title">Choose a date.</string>
     <string name="title_activity_add_amount">AddAmountActivity</string>
     <string name="total_balance">TOTAL BALANCE:</string>
     <!-- From: file:/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values/styles.xml -->
-    <eat-comment />
-
-    <style name="AppBaseTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+    <eat-comment/>
+    <style name="AppBaseTheme" parent="@android:style/Theme.Holo">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
@@ -68,16 +68,14 @@
         -->
 
     </style>
-
     <style name="AppTheme" parent="AppBaseTheme">
-
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
 
         <item name="android:actionBarStyle">@style/DarkActionBar</item>
-    </style>
+        <item name="android:editTextColor">@color/text_white</item>
 
+    </style>
     <style name="DarkActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/full_black</item>
     </style>
-
 </resources>

@@ -35,6 +35,7 @@ import java.util.Date;
 public class StringFormatter {
 
     private static Typeface font;
+    private static DateFormat dateAndTimeFormat;
 
     /**
      * Format a date to be presented to the user.
@@ -42,8 +43,30 @@ public class StringFormatter {
      * @return return a String with the formatted value.
      */
     public static String formatDate(Date d) {
-        DateFormat dateAndTimeFormat = DateFormat.getDateTimeInstance();
+        createDateAndTimeFormat();
         return dateAndTimeFormat.format(d);
+    }
+
+    private static void createDateAndTimeFormat() {
+        // Lazy load.
+        if(dateAndTimeFormat == null) {
+            dateAndTimeFormat = DateFormat.getDateTimeInstance();
+        }
+    }
+
+    /**
+     * Parse a string value into a date using the same date format value.
+     * @param date String value to be parse.
+     * @return Date result of parse operation or Current date if a exception
+     * is throw.
+     */
+    public static Date parseFormatDate(String date) {
+        createDateAndTimeFormat();
+        try {
+            return dateAndTimeFormat.parse(date);
+        } catch (ParseException e) {
+            return new Date();
+        }
     }
 
     /**
@@ -71,6 +94,10 @@ public class StringFormatter {
         }
     }
 
+    /**
+     * Create a Roboto Light Typeface instance on lazy load to be used on views.
+     * @return Typeface Roboto Light.
+     */
     public static Typeface createLightFont(){
         // Lazy load.
         if (font == null) {

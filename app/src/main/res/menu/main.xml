@@ -5,7 +5,14 @@
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
         android:title="@string/add_amount"
-        android:icon="@drawable/ic_action_new"/>
+        android:icon="@drawable/ic_action_add"/>
+
+    <item
+        android:id="@+id/action_subtract"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/add_amount"
+        android:icon="@drawable/ic_action_minus"/>
 
     <item
         android:id="@+id/action_settings"

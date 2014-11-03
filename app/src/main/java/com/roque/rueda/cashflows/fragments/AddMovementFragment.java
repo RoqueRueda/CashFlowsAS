@@ -18,46 +18,46 @@ package com.roque.rueda.cashflows.fragments;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.res.Resources;
+import android.content.Intent;
 import android.database.Cursor;
-import android.drm.DrmStore;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.roque.rueda.cashflows.MainActivity;
 import com.roque.rueda.cashflows.R;
 import com.roque.rueda.cashflows.adapters.AccountSpinnerAdapter;
 import com.roque.rueda.cashflows.database.observer.DataBaseObserver;
 import com.roque.rueda.cashflows.database.observer.DatabaseMessenger;
 import com.roque.rueda.cashflows.hepers.DecimalDigitsInputFiler;
-import com.roque.rueda.cashflows.hepers.NumberTextWatcher;
 import com.roque.rueda.cashflows.loader.SpinnerAccountLoader;
+import com.roque.rueda.cashflows.model.Movement;
+import com.roque.rueda.cashflows.util.AddCashState;
+import com.roque.rueda.cashflows.util.AddNegativeCash;
+import com.roque.rueda.cashflows.util.AddPositiveCash;
 import com.roque.rueda.cashflows.util.StringFormatter;
 
-import java.lang.reflect.Type;
-import java.text.NumberFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashSet;
 
@@ -70,25 +70,47 @@ import java.util.LinkedHashSet;
  *
  */
 public class AddMovementFragment extends Fragment implements
-		DatabaseMessenger, LoaderCallbacks<Cursor> {
+		DatabaseMessenger, LoaderCallbacks<Cursor>, DatePickerDialog.OnDateSetListener {
 
 	// Tag for this class.
 	private static final String TAG = "AddMovementFragment";
 	private static final boolean DEBUG = true;
 
+    // Keys to bundle.
+    private static final String AMOUNT_KEY = "amount";
+    private static final String ACCOUNT_KEY = "account";
+    private static final String DATE_KEY = "date";
+    private static final String NOTES_KEY = "notes";
+
+    // Loader id.
     private static final int LOADER_SPINNER = 3;
 
 	// Used to store the observers.
 	private LinkedHashSet<DataBaseObserver> mObservers;
+
+    // Views
     private Spinner mAccountsSpinner;
     private AccountSpinnerAdapter mAdapter;
     private TextView mDateText;
     private Button mButtonAmount;
-    private EditText mAmmountTextDiaglo;
+    private EditText mNotes;
+    private EditText mAmountTextDago;
     private AlertDialog mInputMoneyDialog;
+    private TextView mFragmentTitle;
+
+    // Edit data.
+    private double mCurrentAmount;
+    private int mSelectedAccount;
+    private long mCurrentDate;
+    private String mCurrentNotes;
+    private boolean hideDialog;
+    private boolean mIsNegative;
+
+    // State pattern.
+    private AddCashState mCashState;
 
 
-	/**
+    /**
 	 * Called when the activity is created.
 	 * @param savedInstanceState Bundle that contains all the
      *                           information for this activity.
@@ -117,10 +139,23 @@ public class AddMovementFragment extends Fragment implements
      * @return View that will be used to present the information.
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_add_amount, container, false);
-        customizeAmountButton(rootView);
-        displayInputMoneyDialog(0);
+
+        // Recover the values to restore the edit values.
+        if(savedInstanceState != null) {
+            mCurrentAmount = savedInstanceState.getDouble(AMOUNT_KEY);
+            mSelectedAccount = savedInstanceState.getInt(ACCOUNT_KEY);
+            mCurrentDate = savedInstanceState.getLong(DATE_KEY);
+            mCurrentNotes = savedInstanceState.getString(NOTES_KEY);
+            hideDialog = true;
+        }
+
+        customizeAmountButton(rootView, mCurrentAmount);
+        if (!hideDialog) {
+            displayInputMoneyDialog(mCurrentAmount);
+        }
 
         // Get adapter this will be filled by the loader.
         mAccountsSpinner = (Spinner) rootView.findViewById(R.id.accounts_spinner);
@@ -128,14 +163,162 @@ public class AddMovementFragment extends Fragment implements
         mAccountsSpinner.setAdapter(mAdapter);
 
         // Set the current date as a formattedString.
+        final Date currentDate = new Date();
         mDateText = (TextView) rootView.findViewById(R.id.current_date);
-        Date currentDate = new Date();
-        String formattedDate = StringFormatter.formatDate(currentDate);
-        mDateText.setText(formattedDate);
+        if (mCurrentDate != 0) {
+            currentDate.setTime(mCurrentDate);
+        }
+
+        // Set the date on the current label.
+        setCurrentDateText(currentDate);
+        createDateTimeDialog();
+
+        mNotes = (EditText) rootView.findViewById(R.id.notesText);
+        if (mCurrentNotes != null) {
+            mNotes.setText(mCurrentNotes);
+        }
 
         createActionBar(inflater);
-
+        mFragmentTitle = (TextView) rootView.findViewById(R.id.title_amount);
+        createAddCashInstance(getArguments().getBoolean(MainActivity.SUBSTRACT_MOVEMENT));
         return rootView;
+    }
+
+    /**
+     * Create a date time dialog to allow the user choose the date for the movement.
+     *
+     */
+    private void createDateTimeDialog() {
+
+        // Add a listener to display a dialog when the user taps on this view.
+        mDateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Set the current date if it's one the saved instance object.
+                final Calendar c = Calendar.getInstance();
+                c.setTimeInMillis(mCurrentDate);
+
+                // Dialog settings.
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
+                        AlertDialog.THEME_HOLO_DARK);
+                LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+                builder.setTitle(R.string.time_date_dialog_title);
+                // Custom view used to display date picker and time picker.
+                View dateTimeLayout = layoutInflater.inflate(R.layout.date_time_layout, null);
+
+                // Text used to display the selected date.
+                final TextView selectedDate = (TextView) dateTimeLayout.findViewById(R.id.selected_date);
+                final Date selectedDateByUser = new Date(getInputDate());
+
+                selectedDate.setText(StringFormatter.formatDate(selectedDateByUser));
+                final DatePicker datePicker = (DatePicker) dateTimeLayout.findViewById(R.id.date_picker);
+                final TimePicker timePicker = (TimePicker) dateTimeLayout.findViewById(R.id.time_picker);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(selectedDateByUser);
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int hourOfTheDay = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
+                timePicker.setCurrentHour(hourOfTheDay);
+                timePicker.setCurrentMinute(minute);
+
+                // Initialize the date picker, also add a listener to
+                // update the label when user change the values.
+                datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
+                    @Override
+                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.YEAR, year);
+                        calendar.set(Calendar.MONTH, monthOfYear);
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        calendar.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
+                        calendar.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+                        calendar.set(Calendar.SECOND, 0);
+                        Date modifyDate = calendar.getTime();
+                        // Update the text view.
+                        selectedDate.setText(StringFormatter.formatDate(modifyDate));
+                    }
+                });
+
+                // Listener used to update the values when time is selected.
+                timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+                    @Override
+                    public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.YEAR, datePicker.getYear());
+                        calendar.set(Calendar.MONTH, datePicker.getMonth());
+                        calendar.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        calendar.set(Calendar.MINUTE, minute);
+                        calendar.set(Calendar.SECOND, 0);
+                        Date modifyDate = calendar.getTime();
+                        // Update the text view.
+                        selectedDate.setText(StringFormatter.formatDate(modifyDate));
+                    }
+                });
+
+                // Set the view to the dialog.
+                builder.setView(dateTimeLayout);
+
+                // Accept button behaviour.
+                builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Calendar dialogDate = Calendar.getInstance();
+                        dialogDate.set(Calendar.YEAR, datePicker.getYear());
+                        dialogDate.set(Calendar.MONTH, datePicker.getMonth());
+                        dialogDate.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+                        dialogDate.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
+                        dialogDate.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+                        dialogDate.set(Calendar.SECOND, 0);
+
+                        setCurrentDateText(dialogDate.getTime());
+                        dialog.dismiss();
+                    }
+                });
+
+                // Cancel button behaviour.
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.cancel();
+                    }
+                });
+
+                // Create and display the dialog.
+                Dialog dateDialog = builder.create();
+                dateDialog.show();
+
+            }
+        });
+    }
+
+    /**
+     * Show the date pass by parameter as a user friendly date
+     * on the current date label of this view.
+     * @param date Date that will be display to the user.
+     */
+    private void setCurrentDateText(Date date) {
+        String formattedDate = StringFormatter.formatDate(date);
+        mDateText.setText(formattedDate);
+    }
+
+    /**
+     * Create the implementation to add a cash statement.
+     * @param isSubtract Flag indicating whether this fragment is to add or subtract money.
+     */
+    private void createAddCashInstance(boolean isSubtract) {
+        mIsNegative = isSubtract;
+        if (isSubtract) {
+            mFragmentTitle.setText(R.string.negative_movement);
+            mCashState = new AddNegativeCash(getActivity());
+        } else {
+            mFragmentTitle.setText(R.string.positive_movement);
+            mCashState = new AddPositiveCash(getActivity());
+        }
     }
 
     /**
@@ -149,7 +332,30 @@ public class AddMovementFragment extends Fragment implements
             @Override
             public void onClick(View v) {
                 // Done.
-                Toast.makeText(getActivity(), R.string.accept, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), R.string.accept, Toast.LENGTH_SHORT).show();
+
+                Movement cashMovement = new Movement();
+                cashMovement.setAmount(getInputAmount());
+                cashMovement.setDate(new Date(getInputDate()));
+                cashMovement.setDescription(getInputNotes());
+
+                if (mIsNegative) {
+                    cashMovement.setSing("-");
+                } else {
+                    cashMovement.setSing("+");
+                }
+
+                cashMovement.setIdAccount(mAccountsSpinner.getSelectedItemId());
+
+                mCashState.saveCashMovement(cashMovement);
+                Toast.makeText(getActivity(), R.string.movement_save_message, Toast.LENGTH_SHORT).
+                        show();
+
+                Intent intent = new Intent();
+                // Indicate to parent activity that the information was store.
+                intent.putExtra(MainActivity.ADD_MOVEMENT_RESULT, true);
+                getActivity().setResult(MainActivity.REQUEST_CODE, intent);
+                getActivity().finish();
             }
         });
 
@@ -173,19 +379,15 @@ public class AddMovementFragment extends Fragment implements
         }
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
     /**
      * Used to get the amount button and assign the initial values.
      * @param rootView View that contains the button.
+     * @param mCurrentAmount
      */
-    private void customizeAmountButton(View rootView) {
+    private void customizeAmountButton(View rootView, double mCurrentAmount) {
         // Set default amount.
         mButtonAmount = (Button) rootView.findViewById(R.id.amount_text);
-        setDefaultAmount();
+        setDefaultAmount(mCurrentAmount);
         buildInputMoneyDialog(getActivity());
 
         mButtonAmount.setOnClickListener(new View.OnClickListener() {
@@ -206,11 +408,11 @@ public class AddMovementFragment extends Fragment implements
 
     /**
      * Sets the default amount "0" in the amount button.
+     * @param mCurrentAmount amount that will be display in the button.
      */
-    private void setDefaultAmount() {
+    private void setDefaultAmount(double mCurrentAmount) {
         mButtonAmount.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
-        Double defaultCurrency = 0d;
-        final String currency = StringFormatter.formatCurrency(defaultCurrency);
+        final String currency = StringFormatter.formatCurrency(mCurrentAmount);
         mButtonAmount.setText(currency);
     }
 
@@ -229,7 +431,7 @@ public class AddMovementFragment extends Fragment implements
 
                 // Set text of the dialog edit text to the amount button.
                 double amountText = 0;
-                String dialogText = mAmmountTextDiaglo.getText().toString();
+                String dialogText = mAmountTextDago.getText().toString();
                 if(dialogText != null && !dialogText.isEmpty()) {
                     amountText = Double.valueOf(dialogText);
                 }
@@ -249,18 +451,18 @@ public class AddMovementFragment extends Fragment implements
         });
 
         // Setup the input for the user.
-        mAmmountTextDiaglo = new EditText(parentActivity);
-        mAmmountTextDiaglo.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
-        mAmmountTextDiaglo.setGravity(Gravity.RIGHT);
-        mAmmountTextDiaglo.setFilters(new InputFilter[] {new DecimalDigitsInputFiler(16,2)});
-        mAmmountTextDiaglo.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL |
+        mAmountTextDago = new EditText(parentActivity);
+        mAmountTextDago.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+        mAmountTextDago.setGravity(Gravity.RIGHT);
+        mAmountTextDago.setFilters(new InputFilter[]{new DecimalDigitsInputFiler(16, 2)});
+        mAmountTextDago.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL |
                 InputType.TYPE_CLASS_NUMBER);
-        mAmmountTextDiaglo.setTextColor(getResources().getColor(R.color.text_white));
+        mAmountTextDago.setTextColor(getResources().getColor(R.color.text_white));
 
-        mAmmountTextDiaglo.setTypeface(StringFormatter.createLightFont());
+        mAmountTextDago.setTypeface(StringFormatter.createLightFont());
 
         // Assign this view to the dialog.
-        builder.setView(mAmmountTextDiaglo);
+        builder.setView(mAmountTextDago);
         mInputMoneyDialog = builder.create();
 
         displayDialogKeyboard();
@@ -284,7 +486,50 @@ public class AddMovementFragment extends Fragment implements
         mInputMoneyDialog.show();
 
         // Set focus on the input text dialog.
-        mAmmountTextDiaglo.setText(Double.valueOf(amount).toString());
+        mAmountTextDago.setText(Double.valueOf(amount).toString());
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Log.v(TAG, "In fragment save instance state");
+        // Store amount.
+        outState.putDouble(AMOUNT_KEY, getInputAmount());
+        // Store selected account.
+        outState.putInt(ACCOUNT_KEY, mAccountsSpinner.getSelectedItemPosition());
+        // Store date.
+        outState.putLong(DATE_KEY, getInputDate());
+        // Store notes.
+        outState.putString(NOTES_KEY, getInputNotes());
+
+    }
+
+    /**
+     * Get the input notes by the user.
+     * @return String instance with the value typed by the user.
+     */
+    private String getInputNotes() {
+        return mNotes.getText().toString();
+    }
+
+    /**
+     * Gets the date input by the user.
+     * @return Date instance with the parsed value or current date
+     * in case of error.
+     */
+    private long getInputDate() {
+        return StringFormatter.parseFormatDate(
+                mDateText.getText().toString()).getTime();
+    }
+
+    /**
+     * Gets a decimal value from user input.
+     * @return double value with the parse value.
+     */
+    private double getInputAmount() {
+        return StringFormatter.getDecimalValue(
+                mButtonAmount.getText().toString());
     }
 
     /////////////////////////////////////////////////////////////////////
@@ -410,6 +655,9 @@ public class AddMovementFragment extends Fragment implements
         mAdapter.swapCursor(data);
         mAdapter.notifyDataSetChanged();
         mAccountsSpinner.setAdapter(mAdapter);
+        if (mSelectedAccount != 0) {
+            mAccountsSpinner.setSelection(mSelectedAccount);
+        }
 
     }
 
@@ -427,5 +675,21 @@ public class AddMovementFragment extends Fragment implements
         }
 
         mAdapter.swapCursor(null);
+    }
+
+    /////////////////////////////////////////////////////////////////////
+    // DatePickerDialog.OnDateSetListener Members.
+    ///////////////////////////////////////////////////////////////////
+
+    /**
+     * @param view        The view associated with this listener.
+     * @param year        The year that was set.
+     * @param monthOfYear The month that was set (0-11) for compatibility
+     *                    with {@link java.util.Calendar}.
+     * @param dayOfMonth  The day of the month that was set.
+     */
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
     }
 }

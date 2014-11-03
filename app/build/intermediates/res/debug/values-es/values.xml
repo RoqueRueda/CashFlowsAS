@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- From: file:/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values-es/strings.xml -->
-    <eat-comment />
-
+    <eat-comment/>
     <string name="accept">Aceptar</string>
     <string name="account_uppercase">CUENTA</string>
     <string name="accounts">CUENTAS</string>
@@ -26,16 +24,20 @@
     <string name="hyphen">-</string>
     <string name="information_amount">presiona para cambiar</string>
     <string name="initial_period">Periodo Inicial</string>
+    <string name="invalid_option">Opcion invalida.</string>
     <string name="loading">Cargando</string>
     <string name="loading_accounts">Cagando cuentas…</string>
     <string name="logo">logo</string>
     <string name="money_symbol">$</string>
+    <string name="movement_save_message">Movimiento almacenado.</string>
     <string name="movements">Movemientos</string>
+    <string name="negative_movement">Movimiento negativo.</string>
     <string name="no_cash_movements">No hay movimientos</string>
     <string name="notes">Notas</string>
     <string name="notes_upper">NOTAS</string>
     <string name="ok_amount_text">Aceptar</string>
+    <string name="positive_movement">Movimiento positivo.</string>
     <string name="save_amount">Guardar</string>
+    <string name="time_date_dialog_title">Selecciona una fecha.</string>
     <string name="total_balance">SALDO TOTAL:</string>
-
 </resources>

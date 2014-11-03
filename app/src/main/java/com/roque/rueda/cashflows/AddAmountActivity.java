@@ -1,28 +1,16 @@
 package com.roque.rueda.cashflows;
 
-import com.roque.rueda.cashflows.R;
-import com.roque.rueda.cashflows.database.observer.DataBaseObserver;
-import com.roque.rueda.cashflows.database.observer.DatabaseMessenger;
 import com.roque.rueda.cashflows.fragments.AddMovementFragment;
-import com.roque.rueda.cashflows.loader.SpinnerAccountLoader;
+import com.roque.rueda.cashflows.util.AddNegativeCash;
+import com.roque.rueda.cashflows.util.AddPositiveCash;
 
-import android.app.Activity;
-import android.app.ActionBar;
-import android.database.Cursor;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
-
-import java.util.LinkedHashSet;
 
 
 /**
@@ -42,11 +30,23 @@ public class AddAmountActivity extends FragmentActivity {
 
         if (savedInstanceState == null) {
 
-            Fragment addFragment = new AddMovementFragment();
-            addFragment.setHasOptionsMenu(true);
+            Fragment movementFragment = new AddMovementFragment();
 
+
+            Intent intent = getIntent();
+            Bundle arguments = new Bundle();
+            if (intent != null) {
+
+                // Pass the argument to the fragment.
+                boolean subtract = intent.getBooleanExtra(MainActivity.SUBSTRACT_MOVEMENT,
+                        false);
+                arguments.putBoolean(MainActivity.SUBSTRACT_MOVEMENT, subtract);
+            }
+
+            movementFragment.setArguments(arguments);
+            movementFragment.setHasOptionsMenu(true);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, addFragment)
+                    .add(R.id.container, movementFragment)
                     .commit();
         }
     }

@@ -36,5 +36,10 @@
     <string name="account_uppercase">ACCOUNT</string>
     <string name="date_upper">DATE</string>
     <string name="notes_upper">NOTES</string>
+    <string name="movement_save_message">Movement stored.</string>
+    <string name="time_date_dialog_title">Choose a date.</string>
+    <string name="invalid_option">Invalid Option.</string>
+    <string name="positive_movement">Positive movement.</string>
+    <string name="negative_movement">Negative movement.</string>
 
 </resources>

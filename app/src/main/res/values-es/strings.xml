@@ -34,5 +34,10 @@
     <string name="account_uppercase">CUENTA</string>
     <string name="date_upper">FECHA</string>
     <string name="notes_upper">NOTAS</string>
+    <string name="movement_save_message">Movimiento almacenado.</string>
+    <string name="time_date_dialog_title">Selecciona una fecha.</string>
+    <string name="invalid_option">Opcion invalida.</string>
+    <string name="positive_movement">Movimiento positivo.</string>
+    <string name="negative_movement">Movimiento negativo.</string>
 
 </resources>

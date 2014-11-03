@@ -65,11 +65,12 @@ public class CashFlowsOpenHelper extends SQLiteOpenHelper {
     public static final int TRANSACTION_ERROR = 10;
     public static final int ERROR_LOADING = 11;
     public static final int ERROR_GETTING_SP_VALUES = 12;
+    public static final int BETA_VERSION = 13;
 
 	/**
 	 * Current database version.
 	 */
-	public static final int DATABASE_VERSION = ERROR_GETTING_SP_VALUES;
+	public static final int DATABASE_VERSION = BETA_VERSION;
 	
 	/**
 	 * Create sentence for the movements table.
@@ -178,16 +179,30 @@ public class CashFlowsOpenHelper extends SQLiteOpenHelper {
             case TRANSACTION_ERROR:
             case ERROR_LOADING:
             case ERROR_GETTING_SP_VALUES:
+            case BETA_VERSION:
             {
                 // Delete account table.
-                db.execSQL("DROP TABLE IF EXISTS " + TABLE_PERIODS);
-                db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACCOUNTS);
-                db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOVEMENTS);
-                onCreate(db);
+                createDatabase(db);
             } break;
+            default:
+            {
+                createDatabase(db);
+            }
 		}
 		
 	}
+
+    /**
+     * Creates the database again from scratch.
+     * @param db SQLite database that will be used to
+     *           create the tables.
+     */
+    private void createDatabase(SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PERIODS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACCOUNTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOVEMENTS);
+        onCreate(db);
+    }
 
     /**
      * Used to configure our sqlite database.

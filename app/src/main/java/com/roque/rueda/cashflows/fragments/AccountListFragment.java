@@ -18,10 +18,12 @@ package com.roque.rueda.cashflows.fragments;
 import java.util.LinkedHashSet;
 
 import com.roque.rueda.android.messenger.ListItemClickNotification;
+import com.roque.rueda.cashflows.MainActivity;
 import com.roque.rueda.cashflows.R;
 import com.roque.rueda.cashflows.adapters.AccountAdapter;
 import com.roque.rueda.cashflows.database.observer.DataBaseObserver;
 import com.roque.rueda.cashflows.database.observer.DatabaseMessenger;
+import com.roque.rueda.cashflows.hepers.FragmentDataNotifier;
 import com.roque.rueda.cashflows.loader.AccountLoader;
 
 import android.app.Activity;
@@ -44,7 +46,7 @@ import android.widget.ListView;
  * 
  */
 public class AccountListFragment extends ListFragment implements 
-		LoaderCallbacks<Cursor>, DatabaseMessenger {
+		LoaderCallbacks<Cursor>, DatabaseMessenger, FragmentDataNotifier {
 
 	// Tag for this class.
 	private static final String TAG = "AccountListFragment";
@@ -117,7 +119,7 @@ public class AccountListFragment extends ListFragment implements
 		ListView lv = getListView();
 		
 		lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		lv.setDivider(getResources().getDrawable(R.color.text_white));
+		lv.setDivider(getResources().getDrawable(R.color.black));
 		lv.setDividerHeight(1);
 	}
 	
@@ -136,6 +138,8 @@ public class AccountListFragment extends ListFragment implements
 		}
 		
 		careTaker = (ListItemClickNotification) activity;
+
+        ((MainActivity)activity).setFragmentClient(this);
 	}
 	
 	
@@ -251,5 +255,19 @@ public class AccountListFragment extends ListFragment implements
 			observer.notifyDatabaseChange();
 		}
 	}
+
+    /////////////////////////////////////////////////////////////////////
+    // DataBase Messenger Interface members.
+    ///////////////////////////////////////////////////////////////////
+
+    /**
+     * Notify the implementation when the data needs to be refresh.
+     */
+    @Override
+    public void notifyDataRefresh() {
+
+        sendNotification();
+
+    }
 	
 }
