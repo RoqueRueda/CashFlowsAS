@@ -22,6 +22,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
+import com.roque.rueda.cashflows.database.AccountManager;
 import com.roque.rueda.cashflows.database.AccountTable;
 import com.roque.rueda.cashflows.database.CashFlowsOpenHelper;
 import com.roque.rueda.cashflows.database.MovementsTable;
@@ -70,11 +71,6 @@ public class AddNegativeCash implements AddCashState{
         ContentValues values = new ContentValues();
         double amount = m.getAmount();
 
-        // Convert the value into negative.
-        if (amount > 0) {
-            m.setAmount(amount * -1);
-        }
-
         values.put(MOVEMENTS_AMOUNT, m.getAmount());
         values.put(MOVEMENTS_DESCRIPTION, m.getDescription());
 
@@ -93,23 +89,21 @@ public class AddNegativeCash implements AddCashState{
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         db.beginTransaction();
         try {
-            Cursor totalAccount = db.query(MovementsTable.TABLE_MOVEMENTS, columns,
-                    ID_ACCOUNT + " = " + m.getIdAccount(), null, null, null, null);
-            double endBalance = 0;
-            if (totalAccount.moveToFirst()) {
-                endBalance = totalAccount.getDouble(SUM_COLUMN_INDEX);
-            }
+
+            double lastBalance = AccountManager.getAccountBalance(m.getIdAccount(), db);
 
             // Save the movement.
             m.setId(db.insert(TABLE_MOVEMENTS, null, values));
 
             // Update final balance
-            endBalance -= m.getAmount();
+            double endBalance = lastBalance - m.getAmount();
             values.clear();
             values.put(AccountTable.ACCOUNT_END_BALANCE, endBalance);
 
             Log.i(TAG, "Saving a negative cash movement of " + m.getAmount() +
-                    " in the account " + m.getIdAccount());
+                    " in the account " + m.getIdAccount() +
+                    " the last balance is: " + lastBalance +
+                    " the new balance is: " + endBalance );
 
             Log.i(TAG, "Saving final balance " + endBalance +
                     " in the account " + m.getIdAccount());

@@ -21,6 +21,10 @@ import static com.roque.rueda.cashflows.database.AccountTable.ACCOUNT_NAME;
 import static com.roque.rueda.cashflows.database.AccountTable.ID_PERIOD;
 import static com.roque.rueda.cashflows.database.AccountTable.TABLE_ACCOUNTS;
 import static com.roque.rueda.cashflows.database.AccountTable.PHOTO_NUMBER;
+import static com.roque.rueda.cashflows.database.MovementsTable.ID_ACCOUNT;
+import static com.roque.rueda.cashflows.database.MovementsTable.MOVEMENTS_AMOUNT;
+import static com.roque.rueda.cashflows.database.MovementsTable.MOVEMENTS_SING;
+import static com.roque.rueda.cashflows.database.MovementsTable.TABLE_MOVEMENTS;
 import static com.roque.rueda.cashflows.database.PeriodTable.ACTIVE;
 import static com.roque.rueda.cashflows.database.PeriodTable.END_DATE;
 import static com.roque.rueda.cashflows.database.PeriodTable.NAME;
@@ -157,6 +161,55 @@ public class AccountManager {
     }
 
     /**
+     * Gets the balance of the account.
+     * @param idAccount Account identifier.
+     * @param db Database use to build to perform query's.
+     * @return Balance of the account or -1 if an error happens.
+     */
+    public static double getAccountBalance(long idAccount, SQLiteDatabase db) {
+
+        Cursor balanceFromDatabase = getBalanceCursor(idAccount, db);
+        // Initialize the variable with the invalid value.
+        double accountBalance = -1;
+
+        // Check if the cursor have any values
+        if (balanceFromDatabase.moveToFirst()) {
+            accountBalance = balanceFromDatabase.getDouble(0);
+        }
+
+        return accountBalance;
+    }
+
+    /**
+     * Performs a query to the database in order to get the final balance.
+     * @param idAccount Account identifier.
+     * @param db Database use to build to perform query's.
+     * @return android.database.Cursor instance with the result.
+     */
+    private static Cursor getBalanceCursor(long idAccount, SQLiteDatabase db) {
+        Cursor balanceFromDatabase = db.rawQuery("SELECT (SELECT SUM(" + MOVEMENTS_AMOUNT + ") FROM "
+                + TABLE_MOVEMENTS + " WHERE " + ID_ACCOUNT + " = ?" +
+                " AND " + MOVEMENTS_SING + " = '+') - " +
+                "(SELECT SUM(" + MOVEMENTS_AMOUNT + ") FROM "
+                + TABLE_MOVEMENTS + " WHERE " + ID_ACCOUNT + " = ?" +
+                " AND " + MOVEMENTS_SING + " = '-')", new String[]{ String.valueOf(idAccount),
+                String.valueOf(idAccount) });
+
+        return balanceFromDatabase;
+    }
+
+
+    /**
+     * Gets the account balance.
+     *
+     * @param idAccount Account identifier.
+     * @return Sum of all account movements minus all negative movements.
+     */
+    public Cursor getAccountBalance(long idAccount) {
+        return getBalanceCursor(idAccount, mOpenHelper.getReadableDatabase());
+    }
+
+    /**
      * Initial load of information to the database.
      * @param db {@link android.database.sqlite.SQLiteDatabase} that will be used to insert
      *           data into the database.
@@ -219,6 +272,5 @@ public class AccountManager {
             db.endTransaction();
         }
     }
-	
-	
+
 }

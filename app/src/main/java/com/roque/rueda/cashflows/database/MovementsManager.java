@@ -78,7 +78,9 @@ public class MovementsManager {
         // Get the database.
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();
         if (db != null) {
-            return qb.query(db, null, null, null, null, null, orderBy);
+            return qb.query(db, null, "WHERE " + AccountTable.FULL_ID + " = ?" ,
+                    new String[]{ Double.valueOf(accountId).toString()}, null, null,
+                    orderBy);
         } else {
             throw new IllegalStateException("Can't get the movements for the given account.");
         }

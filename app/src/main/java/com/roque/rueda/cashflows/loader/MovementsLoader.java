@@ -49,6 +49,11 @@ public class MovementsLoader extends AsyncTaskLoader<Cursor> implements
     private Cursor mMovements;
 
     /**
+     * Account id that will ne used to retrieve all of it's movements.
+     */
+    private long mAccountId;
+
+    /**
      * Creates an instance of this class using the given context.
      *
      * @param context Context of the application.
@@ -61,6 +66,14 @@ public class MovementsLoader extends AsyncTaskLoader<Cursor> implements
         // directly. We can get the reference using getContext().
     }
 
+    /**
+     * Set the account id.
+     *
+     * @param id Account id.
+     */
+    public void setAccountId(long id) {
+        mAccountId = id;
+    }
 
     /**
      * Loads the account movements on a background thread, generates
@@ -75,8 +88,7 @@ public class MovementsLoader extends AsyncTaskLoader<Cursor> implements
          }
 
         MovementsManager manager = new MovementsManager(getContext());
-        int accountId = 1;
-        Cursor data = manager.getCashMovements(accountId);
+        Cursor data = manager.getCashMovements(mAccountId);
         return data;
     }
 

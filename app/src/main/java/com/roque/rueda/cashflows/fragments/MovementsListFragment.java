@@ -32,7 +32,11 @@ import com.roque.rueda.cashflows.R;
 import com.roque.rueda.cashflows.R.layout;
 import com.roque.rueda.cashflows.database.observer.DataBaseObserver;
 import com.roque.rueda.cashflows.database.observer.DatabaseMessenger;
+import com.roque.rueda.cashflows.loader.AccountBalanceLoader;
+import com.roque.rueda.cashflows.loader.AccountLoader;
 import com.roque.rueda.cashflows.loader.BalanceLoader;
+import com.roque.rueda.cashflows.loader.MovementsLoader;
+import com.roque.rueda.cashflows.util.StringFormatter;
 
 import java.util.LinkedHashSet;
 
@@ -50,10 +54,12 @@ public class MovementsListFragment extends ListFragment implements DatabaseMesse
 	private static final String TAG = "MovementsListFragment";
 	private static final boolean DEBUG = true;
 
-    private static final int LOADER_BALANCE = 2;
+    private static final int ACCOUNT_BALANCE = 3;
+    private static final int ACCOUNT_MOVEMENTS = 4;
     private LinkedHashSet<DataBaseObserver> mObservers;
     private TextView mTotalBalance;
-    private BalanceLoader mLoader;
+    private AccountBalanceLoader mLoader;
+    private MovementsLoader mMovements;
 	
 	/**
 	 * Constant used to retrieve the account id from the extras.
@@ -131,9 +137,17 @@ public class MovementsListFragment extends ListFragment implements DatabaseMesse
             mTotalBalance = (TextView) rootView.findViewById(R.id.total_balance);
         }
 
-        mLoader = (BalanceLoader) getLoaderManager().
-                initLoader(LOADER_BALANCE, null, this);
+        mTotalBalance.setText(getResources().getString(R.string.loading));
+
+        // Account balance.
+        mLoader = (AccountBalanceLoader) getLoaderManager().
+                initLoader(ACCOUNT_BALANCE, null, this);
         register(mLoader);
+
+        // Movements.
+        mMovements = (MovementsLoader) getLoaderManager().
+                initLoader(ACCOUNT_MOVEMENTS, null, this);
+        register(mMovements);
 
         return rootView;
     }
@@ -202,14 +216,26 @@ public class MovementsListFragment extends ListFragment implements DatabaseMesse
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
         switch (id) {
-            case LOADER_BALANCE: {
+            case ACCOUNT_BALANCE: {
                 if (DEBUG) {
                     Log.i(TAG, "== onCreateLoader() Creating a new balance loader. ==");
                 }
 
-                BalanceLoader balance = new BalanceLoader(getActivity());
+                AccountBalanceLoader balance = new AccountBalanceLoader(getActivity());
+                balance.setIdAccount(mIdAccount);
                 return balance;
             }
+
+            case ACCOUNT_MOVEMENTS: {
+                if (DEBUG) {
+                    Log.i(TAG, "Create movements loader.");
+                }
+
+                MovementsLoader movements = new MovementsLoader(getActivity());
+                movements.setAccountId(mIdAccount);
+                return movements;
+            }
+
             default: {
 
                 // We must handle null loaders.
@@ -260,12 +286,31 @@ public class MovementsListFragment extends ListFragment implements DatabaseMesse
      */
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (DEBUG) {
-            Log.i(TAG, "== onLoadFinished() Load Balance complete. ==");
-        }
 
-        data.moveToFirst();
-        mTotalBalance.setText(String.format("%.2f", data.getDouble(0)));
+        switch (loader.getId()) {
+
+            case ACCOUNT_BALANCE: {
+                if (DEBUG) {
+                    Log.i(TAG, "== onLoadFinished() Load Balance complete. ==");
+                }
+
+                double finalBalance = 0;
+                if (data.moveToFirst()) {
+                    finalBalance = data.getDouble(0);
+                }
+                mTotalBalance.setText(StringFormatter.formatCurrency(finalBalance));
+            }
+
+            case ACCOUNT_MOVEMENTS: {
+                // TODO: Show movements.
+            }
+
+
+            default: {
+                return;
+            }
+
+        }
     }
 
     /**

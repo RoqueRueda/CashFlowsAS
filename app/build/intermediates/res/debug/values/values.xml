@@ -19,6 +19,7 @@
     <!-- From: file:/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="accept">Accept</string>
+    <string name="account">ACCOUNT:</string>
     <string name="account_uppercase">ACCOUNT</string>
     <string name="accounts">ACCOUNTS</string>
     <string name="action_settings">Settings</string>

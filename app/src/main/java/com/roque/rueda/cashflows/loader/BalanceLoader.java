@@ -46,7 +46,7 @@ public class BalanceLoader extends AsyncTaskLoader<Cursor> implements
     /**
      * Contains the data for the final balance.
      */
-    private Cursor mFinalBalance;
+    private Cursor mData;
 
     /**
      * Creates an instance of this class using the given context.
@@ -105,8 +105,8 @@ public class BalanceLoader extends AsyncTaskLoader<Cursor> implements
         }
 
         // Prevent garbage collection.
-        Cursor oldData = mFinalBalance;
-        mFinalBalance = data;
+        Cursor oldData = mData;
+        mData = data;
 
         if (isStarted()) {
             // Deliver the result to the client.
@@ -145,9 +145,9 @@ public class BalanceLoader extends AsyncTaskLoader<Cursor> implements
             Log.i(TAG, "== onStartLoading() ==");
         }
 
-        if (mFinalBalance != null) {
+        if (mData != null) {
             // Deliver the previously loaded data immediately.
-            deliverResult(mFinalBalance);
+            deliverResult(mData);
         }
 
         if (!mIsObserving) {
@@ -167,7 +167,7 @@ public class BalanceLoader extends AsyncTaskLoader<Cursor> implements
 
             // This method actually loads the data.
             forceLoad();
-        } else if (mFinalBalance == null) {
+        } else if (mData == null) {
 
             if (DEBUG) {
                 Log.i(TAG, "== No accounts found, starting force load. ==");
@@ -203,9 +203,9 @@ public class BalanceLoader extends AsyncTaskLoader<Cursor> implements
         // We need to make sure that the loaders is stopped.
         onStopLoading();
 
-        if (mFinalBalance != null) {
-            releaseResources(mFinalBalance);
-            mFinalBalance = null;
+        if (mData != null) {
+            releaseResources(mData);
+            mData = null;
         }
 
         if (mIsObserving) {

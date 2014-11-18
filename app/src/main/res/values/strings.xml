@@ -41,5 +41,6 @@
     <string name="invalid_option">Invalid Option.</string>
     <string name="positive_movement">Positive movement.</string>
     <string name="negative_movement">Negative movement.</string>
+    <string name="account">ACCOUNT:</string>
 
 </resources>
