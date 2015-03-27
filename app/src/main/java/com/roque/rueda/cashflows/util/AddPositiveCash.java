@@ -110,7 +110,7 @@ public class AddPositiveCash implements AddCashState {
             values.clear();
             values.put(ACCOUNT_END_BALANCE, endBalance);
 
-            Log.i(TAG, "Saving a negative cash movement of " + m.getAmount() +
+            Log.i(TAG, "Saving a positive cash movement of " + m.getAmount() +
                     " in the account " + m.getIdAccount() +
                     " the last balance is: " + lastBalance +
                     " the new balance is: " + endBalance );
@@ -120,6 +120,9 @@ public class AddPositiveCash implements AddCashState {
 
             int affectedRows = db.update(TABLE_ACCOUNTS, values,
                     AccountTable._ID + " = " + m.getIdAccount(), null);
+
+            Log.i(TAG, "Affected rows by update the final balance is " + affectedRows);
+
             db.setTransactionSuccessful();
 
             // Return the operation result.

@@ -67,11 +67,12 @@ public class CashFlowsOpenHelper extends SQLiteOpenHelper {
     public static final int ERROR_GETTING_SP_VALUES = 12;
     public static final int BETA_VERSION = 13;
     public static final int BETA_BUG_FIX = 14;
+    public static final int BETA_RELEASE = 15; // Delete all test values.
 
 	/**
 	 * Current database version.
 	 */
-	public static final int DATABASE_VERSION = BETA_BUG_FIX;
+	public static final int DATABASE_VERSION = BETA_RELEASE;
 	
 	/**
 	 * Create sentence for the movements table.
@@ -182,6 +183,7 @@ public class CashFlowsOpenHelper extends SQLiteOpenHelper {
             case ERROR_GETTING_SP_VALUES:
             case BETA_VERSION:
             case BETA_BUG_FIX:
+            case BETA_RELEASE:
             {
                 // Delete account table.
                 createDatabase(db);

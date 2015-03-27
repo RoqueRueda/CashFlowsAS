@@ -16,6 +16,7 @@
 package com.roque.rueda.cashflows;
 
 import com.roque.rueda.android.messenger.ListItemClickNotification;
+import com.roque.rueda.cashflows.database.AccountTable;
 import com.roque.rueda.cashflows.database.observer.DataBaseObserver;
 import com.roque.rueda.cashflows.database.observer.DatabaseMessenger;
 import com.roque.rueda.cashflows.fragments.MovementsListFragment;
@@ -201,8 +202,10 @@ public class MainActivity extends FragmentActivity
      * Callback for when an item has been selected on a inner account list.
      */
 	@Override
-	public void onItemSelected(long itemId) {
-		
+	public void onItemSelected(long itemId, Object data) {
+
+        Cursor item = (Cursor) data;
+
 		// If this activity is running as two pane show the information on the side.
 		// otherwise show a new activity.
 		
@@ -219,6 +222,7 @@ public class MainActivity extends FragmentActivity
 			Intent cashMovements = new Intent(this, MovementsActivity.class);
 			cashMovements.putExtra(MovementsListFragment.ARG_ACCOUNT_ID,
 					itemId);
+            cashMovements.putExtra(MovementsListFragment.ARG_ACCOUNT_NAME, item.getString(item.getColumnIndex(AccountTable.ACCOUNT_NAME)));
             cashMovements.putExtra(MovementsListFragment.ARG_TWO_PANE, !mIsTwoPane);
 			startActivity(cashMovements);
 		}

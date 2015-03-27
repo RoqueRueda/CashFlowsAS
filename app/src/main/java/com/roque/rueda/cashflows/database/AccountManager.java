@@ -94,7 +94,7 @@ public class AccountManager {
 		
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 		qb.setTables(TABLE_PERIODS + JOIN + TABLE_ACCOUNTS +
-				" ON " + AccountTable.ID_PERIOD + " = " + PeriodTable.FULL_ID);
+                " ON " + AccountTable.ID_PERIOD + " = " + PeriodTable.FULL_ID);
 		
 		String orderBy = AccountTable.FULL_ACCOUNT_NAME + " DESC";
 		
@@ -168,16 +168,36 @@ public class AccountManager {
      */
     public static double getAccountBalance(long idAccount, SQLiteDatabase db) {
 
-        Cursor balanceFromDatabase = getBalanceCursor(idAccount, db);
-        // Initialize the variable with the invalid value.
-        double accountBalance = -1;
+        Cursor positiveBalance = db.rawQuery("SELECT SUM(" + MOVEMENTS_AMOUNT + ") FROM "
+                        + TABLE_MOVEMENTS + " WHERE " + ID_ACCOUNT + " = ?" +
+                        " AND " + MOVEMENTS_SING + " = '+'", new String[]{ String.valueOf(idAccount) });
+        Cursor negativeBalance = db.rawQuery("SELECT SUM(ABS(" + MOVEMENTS_AMOUNT + ")) FROM "
+                + TABLE_MOVEMENTS + " WHERE " + ID_ACCOUNT + " = ?" +
+                " AND " + MOVEMENTS_SING + " = '-'", new String[]{ String.valueOf(idAccount) });
 
-        // Check if the cursor have any values
-        if (balanceFromDatabase.moveToFirst()) {
-            accountBalance = balanceFromDatabase.getDouble(0);
+        double positiveValues = 0;
+        if (positiveBalance.moveToFirst()) {
+            positiveValues = positiveBalance.getDouble(0);
         }
 
-        return accountBalance;
+        double negativeValues = 0;
+        if (negativeBalance.moveToFirst()) {
+            negativeValues = negativeBalance.getDouble(0);
+        }
+        final double finalBalance = positiveValues - negativeValues;
+
+        return finalBalance;
+
+        //Cursor balanceFromDatabase = getBalanceCursor(idAccount, db);
+        // Initialize the variable with the invalid value.
+        // double accountBalance = -1;
+
+        // Check if the cursor have any values
+        // if (balanceFromDatabase.moveToFirst()) {
+        //     accountBalance = balanceFromDatabase.getDouble(0);
+        // }
+
+        // return accountBalance;
     }
 
     /**

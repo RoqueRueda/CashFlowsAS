@@ -78,7 +78,13 @@ public class MovementsManager {
         // Get the database.
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();
         if (db != null) {
-            return qb.query(db, null, "WHERE " + AccountTable.FULL_ID + " = ?" ,
+            return qb.query(db, new String[]{ MovementsTable.FULL_ID,
+                            MovementsTable.FULL_MOVEMENTS_AMOUNT,
+                            MovementsTable.FULL_MOVEMENTS_DESCRIPTION,
+                            MovementsTable.FULL_MOVEMENTS_DATE,
+                            MovementsTable.FULL_MOVEMENTS_SING,
+                            MovementsTable.FULL_ID_ACCOUNT },
+                     AccountTable.FULL_ID + " = ?" ,
                     new String[]{ Double.valueOf(accountId).toString()}, null, null,
                     orderBy);
         } else {

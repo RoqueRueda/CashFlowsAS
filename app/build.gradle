@@ -9,7 +9,7 @@ android {
     }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
@@ -19,4 +19,9 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:20.0.0'
+}
+
+dependencies {
+    apply plugin: 'maven'
+    compile 'com.makeramen:roundedimageview:1.5.0'
 }

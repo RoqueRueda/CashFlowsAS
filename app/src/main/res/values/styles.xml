@@ -25,7 +25,7 @@
 
     <!-- ActionBar bg style -->
     <style name="DarkActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@color/full_black</item>
+        <item name="android:background">@color/action_bar_bg</item>
     </style>
 
 </resources>

@@ -36,6 +36,7 @@ public class AccountView {
 
 	private Resources mResources;
 	private Account mModel;
+    private View mParentView;
 	private ImageView mIcon;
 	private TextView mAccountName;
 	private TextView mAccountBalance;
@@ -49,6 +50,7 @@ public class AccountView {
 	 * 									files.
 	 */
 	public AccountView(View view, Resources resources) {
+        mParentView = view;
 		mIcon = (ImageView) view.findViewById(R.id.icon);
 		mAccountName = (TextView) view.findViewById(R.id.account_name);
 		mAccountBalance = (TextView) view.findViewById(R.id.account_balance);
@@ -70,6 +72,13 @@ public class AccountView {
 	private void bindModel() {
 		getImage(mModel.photoNumber, mResources, mIcon);
 		mAccountName.setText(mModel.name.toUpperCase());
+
+        if (mModel.endBalance > 0) {
+            mParentView.setBackground(mResources.getDrawable(R.drawable.list_bg_blue));
+        } else {
+            mParentView.setBackground(mResources.getDrawable(R.drawable.list_bg_red));
+        }
+
 		mAccountBalance.setText(StringFormatter.formatCurrency(mModel.endBalance));
 	}
 	

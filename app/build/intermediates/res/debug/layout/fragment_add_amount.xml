@@ -77,7 +77,6 @@
             android:id="@+id/current_date"
             android:textColor="@color/text_white"
             android:fontFamily="sans-serif-light"
-            style="@android:style/Widget.DeviceDefault.Light.Spinner"
             android:layout_below="@+id/date_indicator"
             android:layout_alignParentLeft="true"
             android:layout_alignRight="@+id/accounts_spinner" />

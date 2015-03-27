@@ -9,12 +9,12 @@
     <string name="logo">logo</string>
     <string name="money_symbol">$</string>
     <string name="actions_content_description">acciones</string>
-    <string name="movements">Movemientos</string>
+    <string name="movements">MOVIMIENTOS</string>
     <string name="total_balance">SALDO TOTAL:</string>
     <string name="initial_period">Periodo Inicial</string>
     <string name="bank_account">Banco</string>
     <string name="cash_account">Efectivo</string>
-    <string name="loading">Cargando</string>
+    <string name="loading">Cargando...</string>
     <string name="no_cash_movements">No hay movimientos</string>
     <string name="ok_amount_text">Aceptar</string>
     <string name="cancel_amount_text">Cancelar</string>
@@ -39,5 +39,6 @@
     <string name="invalid_option">Opcion invalida.</string>
     <string name="positive_movement">Movimiento positivo.</string>
     <string name="negative_movement">Movimiento negativo.</string>
+    <string name="account">CUENTA:</string>
 
 </resources>

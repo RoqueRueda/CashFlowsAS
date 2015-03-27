@@ -20,6 +20,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -75,7 +76,10 @@ public class StringFormatter {
      * @return String with the formatted vale.
      */
     public static String formatCurrency(double d) {
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+        DecimalFormat currencyFormat = (DecimalFormat) NumberFormat.getCurrencyInstance();
+        String symbol = currencyFormat.getCurrency().getSymbol();
+        currencyFormat.setNegativePrefix("-" + symbol);
+        currencyFormat.setNegativeSuffix("");
         return currencyFormat.format(d);
     }
 

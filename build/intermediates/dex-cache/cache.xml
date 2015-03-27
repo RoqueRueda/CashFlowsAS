@@ -2,11 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        jar="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d">
-        <dex dex="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-b9de8007dd514d0520ec2a1ff77d37c0e7bf3f7b.jar" />
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0">
+        <dex dex="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/intermediates/pre-dexed/debug/classes-00a33be0bd98e50af0f20ca1fc8e3df78b3bff80.jar" />
     </item>
     <item
         jar="/Users/roquerueda/Documents/adt-bundle-mac-x86_64-20140321/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
@@ -16,11 +16,18 @@
         <dex dex="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-c5e8c42337961c070fb42667cf5e7a2e44fa317d.jar" />
     </item>
     <item
-        jar="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jar="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="8694693636ab36910c8100ce527c258ff3ebece0">
-        <dex dex="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/intermediates/pre-dexed/debug/classes-00a33be0bd98e50af0f20ca1fc8e3df78b3bff80.jar" />
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d">
+        <dex dex="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-b9de8007dd514d0520ec2a1ff77d37c0e7bf3f7b.jar" />
+    </item>
+    <item
+        jar="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/intermediates/exploded-aar/com.makeramen/roundedimageview/1.5.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="b2f7dddedcdb3facde33de103dcc32b10c43b92e">
+        <dex dex="/Users/roquerueda/Documents/GitHub/CashFlowsAS/app/build/intermediates/pre-dexed/debug/classes-9f265a7579549d9c35a2c21e1187f97e6dd868d0.jar" />
     </item>
 
 </items>

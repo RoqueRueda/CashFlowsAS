@@ -28,5 +28,5 @@ public interface ListItemClickNotification {
     /**
      * Callback for when an item has been selected.
      */
-    public void onItemSelected(long itemId);
+    public void onItemSelected(long itemId, Object data);
 }

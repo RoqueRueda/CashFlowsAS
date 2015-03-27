@@ -119,8 +119,8 @@ public class AccountListFragment extends ListFragment implements
 		ListView lv = getListView();
 		
 		lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		lv.setDivider(getResources().getDrawable(R.color.black));
-		lv.setDividerHeight(1);
+		lv.setDivider(getResources().getDrawable(R.color.transparent));
+		lv.setDividerHeight(10);
 	}
 	
 	/**
@@ -152,8 +152,7 @@ public class AccountListFragment extends ListFragment implements
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-
-		careTaker.onItemSelected(id);
+		careTaker.onItemSelected(id, l.getItemAtPosition(position));
 	}
 	
 	/////////////////////////////////////////////////////////////////////

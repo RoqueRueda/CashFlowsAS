@@ -21,13 +21,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
-import android.widget.SpinnerAdapter;
 
 import com.roque.rueda.cashflows.R;
 import com.roque.rueda.cashflows.database.AccountTable;
-import com.roque.rueda.cashflows.viewholder.AccountView;
+import com.roque.rueda.cashflows.viewholder.AccountSpinnerView;
 import com.roque.rueda.cashflows.model.Account;
-import com.roque.rueda.cashflows.viewholder.AccuntSpinnerView;
 
 /**
  * Adapter class to show accounts on a Spinner view.
@@ -43,7 +41,7 @@ public class AccountSpinnerAdapter extends CursorAdapter {
     private static int sCoursorFlags = 0;
 
     /**
-     * Creates an accocunt spinner adapter used to show data on a spinner.
+     * Creates an account spinner adapter used to show data on a spinner.
      * @param context Interface to application's global information.
      * @param data Cursor that contains the information to present in the view.
      */
@@ -71,7 +69,7 @@ public class AccountSpinnerAdapter extends CursorAdapter {
         account.photoNumber = cursor.getLong(cursor.
                 getColumnIndex(AccountTable.PHOTO_NUMBER));
 
-        AccuntSpinnerView holder = (AccuntSpinnerView) view.getTag();
+        AccountSpinnerView holder = (AccountSpinnerView) view.getTag();
         holder.setModel(account);
     }
 
@@ -89,7 +87,7 @@ public class AccountSpinnerAdapter extends CursorAdapter {
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         final View view = mInflater.inflate(R.layout.account_spinner, parent, false);
         // View holder that is used to avoid calls to find view by Id.
-        AccuntSpinnerView holder = new AccuntSpinnerView(view, context.getResources());
+        AccountSpinnerView holder = new AccountSpinnerView(view, context.getResources());
         if (view != null) {
             view.setTag(holder);
         }

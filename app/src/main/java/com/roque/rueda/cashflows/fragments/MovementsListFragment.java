@@ -17,8 +17,7 @@ package com.roque.rueda.cashflows.fragments;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -26,15 +25,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.roque.rueda.cashflows.R;
-import com.roque.rueda.cashflows.R.layout;
+import com.roque.rueda.cashflows.adapters.MovementsAdapter;
 import com.roque.rueda.cashflows.database.observer.DataBaseObserver;
 import com.roque.rueda.cashflows.database.observer.DatabaseMessenger;
 import com.roque.rueda.cashflows.loader.AccountBalanceLoader;
-import com.roque.rueda.cashflows.loader.AccountLoader;
-import com.roque.rueda.cashflows.loader.BalanceLoader;
 import com.roque.rueda.cashflows.loader.MovementsLoader;
 import com.roque.rueda.cashflows.util.StringFormatter;
 
@@ -58,8 +56,16 @@ public class MovementsListFragment extends ListFragment implements DatabaseMesse
     private static final int ACCOUNT_MOVEMENTS = 4;
     private LinkedHashSet<DataBaseObserver> mObservers;
     private TextView mTotalBalance;
-    private AccountBalanceLoader mLoader;
+    private TextView mEmptyText;
+    private ListView mListView;
+    private TextView mAccountHeader;
+
+    private AccountBalanceLoader mAccountLoader;
+    private MovementsLoader mMovementsLoader;
     private MovementsLoader mMovements;
+    private MovementsAdapter mMovementsAdapter;
+
+    private String mAccountName;
 	
 	/**
 	 * Constant used to retrieve the account id from the extras.
@@ -71,11 +77,16 @@ public class MovementsListFragment extends ListFragment implements DatabaseMesse
      * two pane.
      */
     public static final String ARG_TWO_PANE = "IsTwoPane";
+
+    /**
+     * Value indicating the account name from extras.
+     */
+    public static final String ARG_ACCOUNT_NAME = "AccountName";
 	
 	private long mIdAccount = -1;
     private boolean mShowBalance = false;
-	
-	/**
+
+    /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
@@ -104,6 +115,10 @@ public class MovementsListFragment extends ListFragment implements DatabaseMesse
 				Log.w(TAG, "== No id is found for AccountMovementsActivity ==");
 			}
 		}
+
+        if (getArguments().containsKey(ARG_ACCOUNT_NAME)) {
+            mAccountName = getArguments().getString(ARG_ACCOUNT_NAME);
+        }
 
         if (getArguments().containsKey(ARG_TWO_PANE)) {
             mShowBalance = getArguments().getBoolean(ARG_TWO_PANE);
@@ -135,21 +150,51 @@ public class MovementsListFragment extends ListFragment implements DatabaseMesse
         if (mShowBalance) {
             rootView.findViewById(R.id.balance_container).setVisibility(View.VISIBLE);
             mTotalBalance = (TextView) rootView.findViewById(R.id.total_balance);
+            mAccountHeader = (TextView) rootView.findViewById(R.id.balance_header);
+            mAccountHeader.setText(getResources().getString(R.string.account) + " " + mAccountName);
         }
+
+        setupListView(rootView);
+        mEmptyText = (TextView) rootView.findViewById(android.R.id.empty);
 
         mTotalBalance.setText(getResources().getString(R.string.loading));
 
         // Account balance.
-        mLoader = (AccountBalanceLoader) getLoaderManager().
+        mAccountLoader = (AccountBalanceLoader) getLoaderManager().
                 initLoader(ACCOUNT_BALANCE, null, this);
-        register(mLoader);
-
-        // Movements.
-        mMovements = (MovementsLoader) getLoaderManager().
-                initLoader(ACCOUNT_MOVEMENTS, null, this);
-        register(mMovements);
+        register(mAccountLoader);
 
         return rootView;
+    }
+
+    /**
+     * Set up the list view.
+     * @param rootView View that contains the list view.
+     */
+    private void setupListView(View rootView) {
+        mListView = (ListView) rootView.findViewById(android.R.id.list);
+        mListView.setDivider(getResources().getDrawable(R.color.transparent));
+        mListView.setDividerHeight(10);
+        mListView.setFastScrollEnabled(true);
+        mListView.setFastScrollAlwaysVisible(true);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        // Create a empty adapter.
+        mMovementsAdapter = new MovementsAdapter(getActivity(), null);
+        mListView.setVisibility(View.GONE);
+
+        mEmptyText.setVisibility(View.VISIBLE);
+        mEmptyText.setText(getActivity().getResources().getString(R.string.loading));
+
+        // Set the adapter to the list.
+        mListView.setAdapter(mMovementsAdapter);
+
+        mMovementsLoader = (MovementsLoader) getLoaderManager().initLoader(ACCOUNT_MOVEMENTS, null, this);
+        register(mMovementsLoader);
     }
 
     ////////////////////////////////////////////////////////////////////
@@ -299,12 +344,25 @@ public class MovementsListFragment extends ListFragment implements DatabaseMesse
                     finalBalance = data.getDouble(0);
                 }
                 mTotalBalance.setText(StringFormatter.formatCurrency(finalBalance));
+                break;
             }
 
             case ACCOUNT_MOVEMENTS: {
-                // TODO: Show movements.
-            }
+                if(DEBUG) {
+                    Log.i(TAG, "== onLoadFinished() Load Movements complete. ==");
+                }
 
+                mMovementsAdapter.swapCursor(data);
+
+                // Set the adapter
+                if (isResumed()) {
+                    mListView.setVisibility(View.VISIBLE);
+                    mEmptyText.setVisibility(View.GONE);
+                } else {
+                    // setListShownNoAnimation(true);
+                }
+                break;
+            }
 
             default: {
                 return;

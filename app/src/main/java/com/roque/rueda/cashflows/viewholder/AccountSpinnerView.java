@@ -31,7 +31,7 @@ import com.roque.rueda.cashflows.model.Account;
  * @version 1.0
  *
  */
-public class AccuntSpinnerView {
+public class AccountSpinnerView {
 
     // Links to the data.
     private Resources mResources;
@@ -48,7 +48,7 @@ public class AccuntSpinnerView {
      * @param parent View that contains the other views.
      * @param resources Resources used to present the information of the activity.
      */
-    public AccuntSpinnerView(View parent, Resources resources){
+    public AccountSpinnerView(View parent, Resources resources){
         mIcon = (ImageView) parent.findViewById(R.id.icon);
         mAccountName = (TextView) parent.findViewById(R.id.account_name);
         mResources = resources;
