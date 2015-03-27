@@ -45,6 +45,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.roque.rueda.cashflows.MainActivity;
+import com.roque.rueda.cashflows.MovementsActivity;
 import com.roque.rueda.cashflows.R;
 import com.roque.rueda.cashflows.adapters.AccountSpinnerAdapter;
 import com.roque.rueda.cashflows.database.observer.DataBaseObserver;
@@ -143,6 +144,12 @@ public class AddMovementFragment extends Fragment implements
                              ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_add_amount, container, false);
 
+
+        /**
+         * TODO: We have the id here but we need to set it as position.
+         */
+        mSelectedAccount = (int) getArguments().getLong(MovementsActivity.ACCOUNT_ID) - 1;
+
         // Recover the values to restore the edit values.
         if(savedInstanceState != null) {
             mCurrentAmount = savedInstanceState.getDouble(AMOUNT_KEY);
@@ -180,6 +187,7 @@ public class AddMovementFragment extends Fragment implements
 
         createActionBar(inflater);
         mFragmentTitle = (TextView) rootView.findViewById(R.id.title_amount);
+
         createAddCashInstance(getArguments().getBoolean(MainActivity.SUBSTRACT_MOVEMENT));
         return rootView;
     }

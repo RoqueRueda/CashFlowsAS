@@ -40,7 +40,9 @@ public class AddAmountActivity extends FragmentActivity {
                 // Pass the argument to the fragment.
                 boolean subtract = intent.getBooleanExtra(MainActivity.SUBSTRACT_MOVEMENT,
                         false);
+                long selectedAccount = intent.getLongExtra(MovementsActivity.ACCOUNT_ID, 0L);
                 arguments.putBoolean(MainActivity.SUBSTRACT_MOVEMENT, subtract);
+                arguments.putLong(MovementsActivity.ACCOUNT_ID, selectedAccount);
             }
 
             movementFragment.setArguments(arguments);
