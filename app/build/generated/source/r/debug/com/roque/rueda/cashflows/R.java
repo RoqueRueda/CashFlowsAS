@@ -221,6 +221,7 @@ containing a value of this type.
     public static final class menu {
         public static final int add_amount=0x7f090000;
         public static final int main=0x7f090001;
+        public static final int movements_menu=0x7f090002;
     }
     public static final class string {
         public static final int accept=0x7f070000;

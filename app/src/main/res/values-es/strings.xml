@@ -40,5 +40,7 @@
     <string name="positive_movement">Movimiento positivo.</string>
     <string name="negative_movement">Movimiento negativo.</string>
     <string name="account">CUENTA:</string>
+    <string name="title_activity_add_amount">Activity agregar</string>
+    <string name="hello_world">Hola Mundo</string>
 
 </resources>
